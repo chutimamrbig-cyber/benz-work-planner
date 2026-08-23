@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8ff">
+  <title>Benz Work Planner V11.2</title>
+  
+  
+  <style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#18212f;--muted:#6b7280;--line:#e6eaf0;--blue:#eaf4ff;--peach:#fff0e8;--green:#edf8ef;--accent:#2563eb;--done:#16a34a;--wait:#d97706;--todo:#ef4444;--shadow:0 8px 28px rgba(23,34,53,.08)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#eef4fb 0,#f8fafc 240px);font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;color:var(--text)}button,input,textarea,select{font:inherit}.app-shell{max-width:720px;margin:0 auto;min-height:100dvh;padding:env(safe-area-inset-top) 12px 92px}.topbar{display:flex;justify-content:space-between;align-items:flex-end;padding:16px 4px 10px;position:sticky;top:0;z-index:5;background:linear-gradient(180deg,rgba(238,244,251,.98),rgba(245,247,251,.94));backdrop-filter:blur(12px)}.eyebrow{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.04em}.topbar h1{margin:2px 0 0;font-size:27px}.date-label{color:var(--muted);font-size:13px;margin-top:2px}.ghost{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 13px}.small{font-size:12px}.hero{background:#13233a;color:#fff;border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}.compact-hero h2{font-size:18px;margin:7px 0 0}.hero-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;background:rgba(255,255,255,.14)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:13px}.stat{background:rgba(255,255,255,.1);border-radius:13px;padding:9px 5px;text-align:center}.stat strong{font-size:21px;display:block}.stat span{font-size:11px;opacity:.82}.special-banner{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff7d6;border:1px solid #f6df7c;border-radius:16px;padding:13px 14px;margin-bottom:12px;text-align:left}.special-banner strong{font-size:14px}.special-banner small{color:#8a6814}.add-special{margin-top:14px}.section{border-radius:18px;overflow:hidden;margin:12px 0;box-shadow:var(--shadow);background:var(--card)}.section.blue .section-head{background:var(--blue)}.section.peach .section-head{background:var(--peach)}.section.green .section-head{background:var(--green)}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 14px}.section-title{font-weight:900;font-size:14px}.section-count{font-size:12px;color:var(--muted);white-space:nowrap}.task{border-top:1px solid var(--line)}.easy-task{padding:10px 9px;display:grid;grid-template-columns:82px minmax(0,1fr) 38px 28px;gap:7px;align-items:center;min-height:64px}.task-main{min-width:0}.task-name{font-weight:800;font-size:14px;line-height:1.25}.task-sub{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.task-note-preview{font-size:11px;color:#7c5b11;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.is-done .task-name{text-decoration:line-through;color:#64748b}.status{border:none;border-radius:12px;padding:8px 7px;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:5px;min-height:40px}.status-front{width:100%}.status-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}.status.todo{background:#fee2e2;color:#b91c1c}.status.waiting{background:#ffedd5;color:#9a3412}.status.done{background:#dcfce7;color:#166534}.icon-btn{border:0;background:#f3f4f6;border-radius:11px;width:36px;height:36px;display:grid;place-items:center;font-size:15px}.icon-btn.has-note{background:#fff7d6}.more{border:none;background:transparent;font-size:20px;color:#64748b;padding:6px 2px}.add-row{width:100%;border:0;border-top:1px solid var(--line);padding:12px;background:#fff;font-weight:900;color:var(--accent)}.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(720px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(14px);z-index:20}.nav-btn{border:0;background:transparent;border-radius:13px;padding:8px 4px;color:#64748b;font-size:18px}.nav-btn span{display:block;font-size:11px;margin-top:3px}.nav-btn.active{background:#e8f1ff;color:#1d4ed8}.toolbar{display:flex;gap:8px;margin:8px 0 12px}.toolbar button{flex:1}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin:4px 0 12px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{text-align:center;font-size:11px;color:var(--muted);padding:4px}.day{min-height:70px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;position:relative;text-align:left}.day.selected{outline:2px solid #3b82f6}.day .num{font-weight:900}.day .marks{font-size:10px;margin-top:6px;line-height:1.35}.tdl-month>div{text-align:center}.tdl-overview{background:#13233a;color:#fff;border-radius:20px;padding:15px;margin-bottom:12px;box-shadow:var(--shadow)}.tdl-progress-row{display:grid;grid-template-columns:75px 1fr;gap:12px;align-items:center}.tdl-progress-row>div:first-child strong{font-size:25px;display:block}.tdl-progress-row>div:first-child span{font-size:11px;opacity:.75}.progress{height:9px;background:rgba(255,255,255,.15);border-radius:999px;overflow:hidden}.progress>i{display:block;height:100%;background:#4ade80}.stats.light .stat{background:rgba(255,255,255,.1)}.tdl-filter{display:flex;gap:8px;margin-top:12px}.filter-btn{flex:1;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:9px;font-size:12px;font-weight:800}.filter-btn.active{background:#fff;color:#172033}.tdl-section{background:#fff;border-radius:18px;overflow:hidden;margin:11px 0;box-shadow:var(--shadow)}.tdl-section-head{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:13px 14px;background:#f8fafc;border-bottom:1px solid var(--line);font-size:13px}.tdl-section-head>div{display:flex;gap:7px;align-items:center}.tdl-section-head>span{font-size:11px;color:var(--muted)}.tdl-task{padding:10px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:82px minmax(0,1fr) 38px;gap:8px;align-items:center}.tdl-task:last-child{border-bottom:0}.tdl-task-body{min-width:0}.tdl-task-body strong,.tdl-task-title strong{font-size:13px;line-height:1.25}.tdl-task-body small,.tdl-task-title small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.note-text{color:#8a6814!important}.recurring{display:block;padding:11px 10px}.tdl-task-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}.mini-status{font-size:10px;font-weight:900;border-radius:999px;padding:4px 7px;white-space:nowrap}.mini-status.todo{background:#fee2e2;color:#b91c1c}.mini-status.waiting{background:#ffedd5;color:#9a3412}.mini-status.done{background:#dcfce7;color:#166534}.round-list{background:#f8fafc;border-radius:13px;padding:4px 8px}.round-row{display:grid;grid-template-columns:82px 1fr 36px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed #dbe1e8}.round-row:last-child{border-bottom:0}.small-status{min-height:34px}.round-date{font-weight:800;font-size:12px}.settings-card{background:#fff;border-radius:18px;padding:16px;box-shadow:var(--shadow);margin:10px 0}.schedule{display:flex;gap:6px;flex-wrap:wrap}.schedule span{background:#eef2ff;color:#3730a3;padding:7px 9px;border-radius:999px;font-size:12px;font-weight:800}.primary{border:0;background:#2563eb;color:#fff;border-radius:13px;padding:11px 14px;font-weight:800}.big-btn{width:100%;padding:13px}.modal{position:fixed;inset:0;background:rgba(15,23,42,.38);display:flex;align-items:flex-end;justify-content:center;z-index:50}.modal.hidden{display:none}.sheet{width:min(720px,100%);background:#fff;border-radius:22px 22px 0 0;padding:12px 16px calc(18px + env(safe-area-inset-bottom));max-height:80dvh;overflow:auto}.sheet-handle{width:46px;height:5px;background:#d1d5db;border-radius:999px;margin:0 auto 14px}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:800;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #d9dee7;border-radius:12px;padding:11px;background:#fff}.field textarea{min-height:90px;resize:vertical}.row{display:flex;gap:8px}.row>*{flex:1}.danger{color:#b91c1c}.empty{padding:30px 16px;text-align:center;color:var(--muted)}.success-empty{background:#f0fdf4;border-radius:16px;color:#166534;font-weight:800}@media(max-width:380px){.easy-task,.tdl-task{grid-template-columns:76px minmax(0,1fr) 34px 24px}.tdl-task{grid-template-columns:76px minmax(0,1fr) 34px}.status{font-size:10px;padding:7px 5px}.section-title{font-size:13px}.task-name{font-size:13px}}@media(min-width:640px){.app-shell{padding-left:24px;padding-right:24px}.day{min-height:88px}}
+
+/* V5: preserve V2 look, make frequent actions right-hand friendly */
+.easy-task{grid-template-columns:minmax(0,1fr) 38px 88px 28px;gap:7px}
+.tdl-task{grid-template-columns:minmax(0,1fr) 38px 88px 28px;gap:7px}
+.status-front{min-width:82px;min-height:42px;padding:8px 8px}
+.add-section-btn{width:100%;border:1px dashed #c8d2df;background:rgba(255,255,255,.84);border-radius:16px;padding:13px;margin:13px 0 4px;color:#2563eb;font-weight:900;box-shadow:0 4px 16px rgba(23,34,53,.04)}
+.hint-card{background:#fff7d6;border:1px solid #f4df8d;color:#7c5b11;padding:11px 12px;border-radius:13px;font-size:12px;margin:10px 0}
+button:disabled,input:disabled{opacity:.55;cursor:not-allowed}
+
+/* TDL: V2 card shape + subtle pastel section identity */
+.tdl-section-head{padding:12px 12px 12px 14px;border-bottom:1px solid var(--line)}
+.tdl-head-title{display:flex;gap:8px;align-items:center;min-width:0}
+.tdl-head-title strong{font-size:14px;line-height:1.3}
+.tdl-head-actions{display:flex;align-items:center;gap:7px;flex:none}
+.tdl-head-actions>span{font-size:11px;color:var(--muted);font-weight:800;white-space:nowrap}
+.collapse-btn{width:38px;height:38px;border:1px solid rgba(15,23,42,.06);background:rgba(255,255,255,.68);border-radius:12px;color:#475569;font-size:22px;line-height:1;display:grid;place-items:center;padding:0}
+.collapse-btn:active{transform:scale(.96)}
+.tone-peach .tdl-section-head{background:#fff4ee}
+.tone-green .tdl-section-head{background:#eef9f1}
+.tone-blue .tdl-section-head{background:#eef6ff}
+.tone-purple .tdl-section-head{background:#f5efff}
+.tone-yellow .tdl-section-head{background:#fff9df}
+.tone-pink .tdl-section-head{background:#fff0f4}
+.tdl-section-body{background:#fff}
+.tdl-add-row{background:#fff;color:#2563eb}
+
+/* TDL recurring rows: date on left, status on right */
+.recurring{padding:11px 10px}
+.rec-title-actions{display:flex;align-items:center;gap:4px}
+.round-list{padding:4px 7px}
+.round-row{grid-template-columns:minmax(0,1fr) 36px 88px;gap:7px;padding:7px 0}
+.round-date-btn{border:0;background:transparent;text-align:left;color:#172033;font-weight:900;font-size:12px;padding:7px 6px;border-radius:10px;min-width:0}
+.round-date-btn span{color:#64748b;font-size:11px}
+.round-date-btn:active{background:#eaf2ff}
+
+/* Calendar weekend visibility */
+.weekend-label{color:#dc5965!important;font-weight:900}
+.weekend-day{background:#fff1f3!important;color:#c84555!important;border-color:#f7d3d8!important}
+.weekend-day .marks{color:#8a5560}
+.day.selected.weekend-day{outline-color:#ef7180}
+
+@media(max-width:380px){
+  .easy-task,.tdl-task{grid-template-columns:minmax(0,1fr) 34px 80px 22px;gap:5px}
+  .round-row{grid-template-columns:minmax(0,1fr) 34px 80px;gap:5px}
+  .status-front{min-width:76px;font-size:10px}
+  .collapse-btn{width:36px;height:36px}
+}
+
+/* V6: keep V2/V5 layout, add polished collapse controls to Today + TDL */
+.section.purple .section-head{background:#f5efff}
+.section.yellow .section-head{background:#fff9df}
+.section.pink .section-head{background:#fff0f4}
+.section-head-actions{display:flex;align-items:center;gap:8px;flex:none}
+.daily-section-body{background:#fff}
+.daily-subheading{padding:9px 12px 7px;border-top:1px solid var(--line);background:#fafbfc;color:#5b6472;font-size:11px;font-weight:900;letter-spacing:.01em}
+
+.collapse-btn{
+  width:36px;height:36px;padding:0;border-radius:12px;
+  border:1px solid rgba(71,85,105,.12);
+  background:rgba(255,255,255,.78);
+  color:#536176;display:grid;place-items:center;
+  box-shadow:0 2px 8px rgba(30,41,59,.04);
+  transition:background .18s ease,border-color .18s ease,transform .12s ease;
+}
+.collapse-btn:hover{background:#fff;border-color:rgba(37,99,235,.18)}
+.collapse-btn:active{transform:scale(.95)}
+.chevron{
+  width:9px;height:9px;display:block;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg) translate(-1px,-1px);
+  transform-origin:center;
+  transition:transform .2s ease;
+}
+.collapse-btn[aria-expanded="true"] .chevron{transform:rotate(225deg) translate(-1px,-1px)}
+
+/* Keep the TDL header soft and compact while giving the chevron breathing room. */
+.tdl-section-head{min-height:56px}
+.tdl-head-actions{gap:9px}
+
+@media(max-width:380px){
+  .section-head{padding:11px 10px 11px 12px}
+  .section-head-actions{gap:5px}
+  .collapse-btn{width:34px;height:34px;border-radius:11px}
+  .daily-subheading{padding-left:10px}
+}
+.holiday-banner{background:#fff1f3;border:1px solid #ffd4da;color:#b9475b;border-radius:18px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.holiday-banner strong{font-size:16px}.holiday-banner small{color:#8a6570}.holiday-day:not(.weekend-day){background:#fff6f7!important;color:#c75161!important;border-color:#ffd7dd!important}
+
+
+/* V8 Desktop: Chrome on one work computer is the primary experience. */
+.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.backup-note{font-size:12px;line-height:1.55;color:#64748b;background:#f8fafc;border:1px solid var(--line);border-radius:13px;padding:10px 12px}
+.settings-grid{display:grid;gap:12px}
+
+@media(min-width:900px){
+  body{background:linear-gradient(180deg,#eef4fb 0,#f8fafc 300px);min-width:900px}
+  .app-shell{max-width:1280px;margin:0 auto;min-height:100vh;padding:0 28px 42px;display:grid;grid-template-columns:190px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:24px}
+  .topbar{grid-column:1/-1;grid-row:1;padding:20px 8px 14px;align-items:center}
+  .topbar h1{font-size:30px}
+  #app{grid-column:2;grid-row:2;min-width:0;padding-bottom:20px}
+  .bottom-nav{position:sticky;grid-column:1;grid-row:2;align-self:start;top:118px;left:auto;bottom:auto;transform:none;width:100%;display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+  .nav-btn{display:grid;grid-template-columns:30px 1fr;align-items:center;text-align:left;gap:8px;font-size:18px;padding:11px 12px}
+  .nav-btn span{display:inline;font-size:13px;margin:0;font-weight:800}
+  .hero,.tdl-overview{padding:20px;border-radius:22px}
+  .compact-hero h2{font-size:21px}
+  .section,.tdl-section,.settings-card{border-radius:20px}
+  .section-head,.tdl-section-head{padding-left:18px;padding-right:18px}
+  .easy-task,.tdl-task{padding:11px 14px;grid-template-columns:minmax(0,1fr) 42px 104px 34px;gap:10px;min-height:66px}
+  .round-row{grid-template-columns:minmax(0,1fr) 42px 104px;gap:10px;padding:8px 4px}
+  .status-front{min-width:98px}
+  .task-name,.tdl-task-body strong,.tdl-task-title strong{font-size:14px}
+  .calendar-grid{gap:8px}
+  .dow{font-size:12px;font-weight:800}
+  .day{min-height:118px;border-radius:15px;padding:9px}
+  .day .num{font-size:14px}
+  .day .marks{font-size:11px;line-height:1.5}
+  .calendar-head{margin:6px 0 16px}
+  .calendar-head strong{font-size:18px}
+  .settings-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .backup-card{grid-column:span 2}
+  .modal{align-items:center;padding:24px}
+  .sheet{width:min(680px,calc(100% - 48px));border-radius:22px;padding:22px 24px;max-height:86vh;box-shadow:0 24px 70px rgba(15,23,42,.22)}
+  .sheet-handle{display:none}
+}
+
+@media(max-width:899px){
+  .backup-actions{grid-template-columns:1fr}
+}
+
+/* ================================
+   V10 Hybrid UI • V9 + V8
+   Visual refresh only — V8 data/logic stays intact.
+   ================================ */
+.v9-ui{
+  --v9-bg:#f7f8fc;
+  --v9-panel:#ffffff;
+  --v9-ink:#27324a;
+  --v9-muted:#8992a7;
+  --v9-purple:#7567e8;
+  --v9-purple-soft:#f1efff;
+  --v9-blue:#5c91ea;
+  --v9-blue-soft:#edf5ff;
+  --v9-mint:#4db99d;
+  --v9-mint-soft:#ecf8f4;
+  --v9-peach:#eea45d;
+  --v9-peach-soft:#fff5e9;
+  --v9-rose:#e8758f;
+  --v9-rose-soft:#fff0f4;
+  --v9-line:#e9edf5;
+  --v9-shadow:0 10px 32px rgba(75,86,120,.08);
+  background:linear-gradient(135deg,#faf9ff 0%,#f6f9ff 45%,#f8fbfa 100%);
+  color:var(--v9-ink);
+}
+.v9-ui .app-shell{
+  max-width:1500px;
+  min-height:100vh;
+  margin:0 auto;
+  padding:18px;
+  display:grid;
+  grid-template-columns:190px minmax(0,1fr);
+  gap:18px;
+}
+.v9-ui .sidebar{
+  min-height:calc(100vh - 36px);
+  position:sticky;
+  top:18px;
+  align-self:start;
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(229,233,244,.95);
+  border-radius:24px;
+  box-shadow:var(--v9-shadow);
+  display:flex;
+  flex-direction:column;
+  padding:18px 12px 14px;
+  backdrop-filter:blur(16px);
+}
+.v9-ui .sidebar-brand{display:flex;align-items:center;gap:11px;padding:3px 8px 20px;border-bottom:1px solid var(--v9-line)}
+.v9-ui .brand-mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#8b7ff0,#6f63df);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;box-shadow:0 8px 18px rgba(117,103,232,.25)}
+.v9-ui .brand-copy{display:grid;gap:2px;min-width:0}.v9-ui .brand-copy strong{font-size:14px}.v9-ui .brand-copy small{font-size:10px;color:var(--v9-muted)}
+.v9-ui .bottom-nav{position:static;left:auto;bottom:auto;transform:none;width:auto;display:flex;flex-direction:column;gap:7px;background:transparent;border:0;padding:18px 0 0;backdrop-filter:none;z-index:auto}
+.v9-ui .nav-btn{border:0;background:transparent;border-radius:14px;padding:11px 12px;color:#788298;font-size:14px;display:grid;grid-template-columns:28px 1fr;gap:7px;align-items:center;text-align:left;transition:.18s ease}
+.v9-ui .nav-btn span{display:inline;margin:0;font-size:13px;font-weight:800}.v9-ui .nav-btn .nav-icon{font-size:17px;font-weight:700;color:#7d87a0;text-align:center}
+.v9-ui .nav-btn:hover{background:#f7f7fc;color:var(--v9-ink)}
+.v9-ui .nav-btn.active{background:linear-gradient(90deg,#f1efff,#f7f5ff);color:#6658dc;box-shadow:inset 3px 0 0 #8375eb}.v9-ui .nav-btn.active .nav-icon{color:#6658dc}
+.v9-ui .sidebar-foot{margin-top:auto;border-top:1px solid var(--v9-line);padding:16px 7px 3px;display:flex;align-items:center;gap:9px}.v9-ui .sidebar-foot>div:last-child{display:grid;gap:1px}.v9-ui .sidebar-foot strong{font-size:12px}.v9-ui .sidebar-foot small{font-size:10px;color:var(--v9-muted)}
+.v9-ui .profile-dot{width:32px;height:32px;border-radius:50%;background:#f0efff;color:#6a5dde;display:grid!important;place-items:center;font-weight:900;font-size:12px}
+.v9-ui .workspace{min-width:0;background:rgba(255,255,255,.55);border:1px solid rgba(235,238,247,.9);border-radius:24px;box-shadow:var(--v9-shadow);overflow:hidden}
+.v9-ui .topbar{position:sticky;top:0;z-index:9;background:rgba(255,255,255,.84);backdrop-filter:blur(18px);padding:22px 28px 18px;border-bottom:1px solid rgba(234,238,246,.9);align-items:center}
+.v9-ui .topbar .eyebrow{font-size:10px;color:#a0a7b7;letter-spacing:.12em}.v9-ui .topbar h1{font-size:27px;margin:3px 0 0;color:#27324a;letter-spacing:-.02em}.v9-ui .date-label{font-size:12px;color:#8b94a7;margin-top:4px}
+.v9-ui #app{padding:22px 28px 30px;max-width:none}
+.v9-ui .ghost{background:#fff;border:1px solid var(--v9-line);color:#6f7890;border-radius:12px;box-shadow:0 4px 12px rgba(73,83,112,.04)}
+.v9-ui .primary{background:linear-gradient(135deg,#7b6fe7,#695dda);box-shadow:0 7px 16px rgba(111,96,220,.2);border-radius:12px}
+
+/* Summary area: white canvas + separate pastel stat tiles */
+.v9-ui .hero,.v9-ui .tdl-overview{background:#fff;color:var(--v9-ink);border:1px solid var(--v9-line);box-shadow:0 8px 24px rgba(77,89,122,.06);border-radius:20px;padding:18px 20px}
+.v9-ui .hero-top{align-items:flex-start}.v9-ui .hero h2{font-size:18px;margin:7px 0 0}.v9-ui .hero .pill{background:#f5f3ff;color:#6c5edc;border:1px solid #ebe7ff}.v9-ui .hero .hero-top>span.pill{background:#f8fafc;color:#798196;border-color:#eef0f5}
+.v9-ui .stats{gap:10px;margin-top:16px}.v9-ui .summary-stat-card,.v9-ui .hero .stat,.v9-ui .tdl-overview .stat{border:1px solid transparent;border-radius:15px;padding:12px 8px;text-align:center}
+.v9-ui .hero .stat:nth-child(1),.v9-ui .tdl-overview .stat:nth-child(1){background:var(--v9-purple-soft);border-color:#e4dfff;color:#6658dc}
+.v9-ui .hero .stat:nth-child(2),.v9-ui .tdl-overview .stat:nth-child(2){background:var(--v9-mint-soft);border-color:#d5eee5;color:#31967a}
+.v9-ui .hero .stat:nth-child(3),.v9-ui .tdl-overview .stat:nth-child(3){background:var(--v9-peach-soft);border-color:#f8e5cd;color:#cf7c31}
+.v9-ui .hero .stat:nth-child(4),.v9-ui .tdl-overview .stat:nth-child(4){background:var(--v9-rose-soft);border-color:#f7dbe3;color:#cf5f79}
+.v9-ui .hero .stat strong,.v9-ui .tdl-overview .stat strong{font-size:21px}.v9-ui .hero .stat span,.v9-ui .tdl-overview .stat span{opacity:1;color:currentColor;font-weight:700}
+.v9-ui .special-banner{background:#fffbef;border:1px solid #f5e6b5;box-shadow:none;color:#775d20}
+
+/* Today cards */
+.v9-ui .section,.v9-ui .tdl-section,.v9-ui .settings-card{border:1px solid var(--v9-line);box-shadow:0 7px 22px rgba(77,89,122,.055);border-radius:18px;background:#fff}
+.v9-ui .section{overflow:hidden}.v9-ui .section-head{padding:13px 16px;border-bottom:1px solid rgba(226,231,242,.8)}.v9-ui .section-title{font-size:13.5px;color:#40506d}.v9-ui .section-count{font-size:11px;color:#9aa2b2}
+.v9-ui .section.blue .section-head,.v9-ui .tone-blue .tdl-section-head{background:linear-gradient(90deg,#edf5ff,#f5f9ff)}
+.v9-ui .section.green .section-head,.v9-ui .tone-green .tdl-section-head{background:linear-gradient(90deg,#ecf8f4,#f5fbf9)}
+.v9-ui .section.peach .section-head,.v9-ui .tone-peach .tdl-section-head{background:linear-gradient(90deg,#fff5e9,#fffaf3)}
+.v9-ui .section.purple .section-head,.v9-ui .tone-purple .tdl-section-head{background:linear-gradient(90deg,#f1efff,#f8f6ff)}
+.v9-ui .section.yellow .section-head,.v9-ui .tone-yellow .tdl-section-head{background:linear-gradient(90deg,#fff9e8,#fffdf6)}
+.v9-ui .section.pink .section-head,.v9-ui .tone-pink .tdl-section-head{background:linear-gradient(90deg,#fff0f4,#fff8fa)}
+.v9-ui .easy-task,.v9-ui .tdl-task{min-height:56px;padding:9px 13px;border-top:1px solid #f0f2f7;grid-template-columns:minmax(0,1fr) 36px 96px 28px}.v9-ui .task-name,.v9-ui .tdl-task-body strong,.v9-ui .tdl-task-title strong{font-size:13px;color:#34415b}.v9-ui .task-sub,.v9-ui .tdl-task-body small,.v9-ui .tdl-task-title small{color:#9aa2b2}.v9-ui .daily-subheading{background:#fcfcfe;color:#7b8497;border-top-color:#eef1f6}
+.v9-ui .icon-btn{background:#fafbfe;color:#788299;border:1px solid #eef1f6;border-radius:10px}.v9-ui .more{color:#a4abba}.v9-ui .add-row{background:#fff;color:#7567e8;border-top:1px solid #eef1f6;font-size:12px}.v9-ui .add-section-btn{background:#fbfaff;color:#7567e8;border-color:#dcd6ff;box-shadow:none}
+.v9-ui .collapse-btn{background:rgba(255,255,255,.72);color:#66738a;border-color:rgba(124,134,158,.14);border-radius:50%;width:31px;height:31px;box-shadow:none}.v9-ui .chevron{width:7px;height:7px;border-width:1.6px}
+.v9-ui .status{min-height:34px;border-radius:10px;padding:7px 8px}.v9-ui .status.todo,.v9-ui .mini-status.todo{background:#fff0f4;color:#cf5f79}.v9-ui .status.waiting,.v9-ui .mini-status.waiting{background:#fff5e9;color:#cf7c31}.v9-ui .status.done,.v9-ui .mini-status.done{background:#ecf8f4;color:#31967a}
+
+/* Calendar */
+.v9-ui .calendar-head{background:#fff;border:1px solid var(--v9-line);border-radius:16px;padding:10px 12px;box-shadow:0 6px 18px rgba(77,89,122,.04);margin:0 0 14px}.v9-ui .calendar-head strong{color:#34415b}.v9-ui .calendar-grid{background:#fff;border:1px solid var(--v9-line);border-radius:18px;padding:12px;gap:0;box-shadow:0 8px 24px rgba(77,89,122,.05)}.v9-ui .dow{padding:9px 4px;font-weight:800;color:#8992a7}.v9-ui .day{border:0;border-top:1px solid #f0f2f7;border-right:1px solid #f0f2f7;border-radius:0;background:#fff;min-height:112px;padding:9px;box-shadow:none}.v9-ui .day:nth-child(7n){border-right:0}.v9-ui .day:hover{background:#fafbff}.v9-ui .day.selected{outline:0;background:#f5f3ff;box-shadow:inset 0 0 0 2px #8778ef;border-radius:12px;z-index:2}.v9-ui .weekend-day{background:#fff9fa!important;color:#de6b80!important;border-color:#f4edf0!important}.v9-ui .holiday-day:not(.weekend-day){background:#fff7f8!important}.v9-ui .day .marks{color:#7e889d}
+
+/* TDL */
+.v9-ui .tdl-progress-row{grid-template-columns:84px 1fr}.v9-ui .tdl-progress-row>div:first-child strong{color:#675bd9}.v9-ui .tdl-progress-row>div:first-child span{opacity:1;color:#9aa2b2}.v9-ui .progress{background:#eeedf7}.v9-ui .progress>i{background:linear-gradient(90deg,#7567e8,#61b8a1)}.v9-ui .tdl-filter{gap:8px}.v9-ui .filter-btn{border:1px solid var(--v9-line);background:#fafbfe;color:#7d8799}.v9-ui .filter-btn.active{background:#f1efff;color:#6558d8;border-color:#dfdafd}.v9-ui .tdl-section-head{border-bottom:1px solid #edf0f6;padding:12px 14px}.v9-ui .tdl-head-title strong{color:#40506d}.v9-ui .round-list{background:#fbfcff;border:1px solid #f0f2f7}.v9-ui .round-date-btn{color:#40506d}
+
+/* Settings + modal */
+.v9-ui .settings-grid{gap:14px}.v9-ui .settings-card{padding:18px}.v9-ui .settings-card h3{margin-top:0;color:#34415b}.v9-ui .settings-card p{color:#7d8799;line-height:1.65}.v9-ui .schedule span{background:#f1efff;color:#6659d7}.v9-ui .backup-note{background:#fafbfe;border-color:#edf0f6}.v9-ui .modal{background:rgba(45,50,70,.28);backdrop-filter:blur(3px)}.v9-ui .sheet{border-radius:20px;box-shadow:0 26px 72px rgba(47,55,82,.18)}.v9-ui .field label{color:#59657d}.v9-ui .field input,.v9-ui .field textarea,.v9-ui .field select{border-color:#e5e9f1;background:#fbfcfe}.v9-ui .hint-card{background:#fffaf0;border-color:#f5e8c7;color:#7d6836}
+
+@media(min-width:1100px){
+  .v9-ui #app{padding-left:34px;padding-right:34px}
+  .v9-ui .stats{grid-template-columns:repeat(4,minmax(120px,1fr))}
+  .v9-ui .settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .v9-ui .backup-card{grid-column:span 2}
+}
+@media(max-width:899px){
+  .v9-ui .app-shell{display:block;padding:0;min-height:100dvh}.v9-ui .sidebar{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:30;min-height:0;height:auto;border-radius:18px 18px 0 0;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:block}.v9-ui .sidebar-brand,.v9-ui .sidebar-foot{display:none}.v9-ui .bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);padding:0;gap:4px}.v9-ui .nav-btn{display:flex;flex-direction:column;gap:2px;text-align:center;padding:7px 4px;border-radius:12px}.v9-ui .nav-btn.active{box-shadow:none}.v9-ui .nav-btn span{font-size:10px}.v9-ui .nav-btn .nav-icon{font-size:16px}.v9-ui .workspace{border:0;border-radius:0;box-shadow:none;min-height:100dvh;background:transparent;padding-bottom:78px}.v9-ui .topbar{padding:15px 15px 12px}.v9-ui #app{padding:14px 12px 24px}.v9-ui .easy-task,.v9-ui .tdl-task{grid-template-columns:minmax(0,1fr) 34px 84px 24px;gap:6px}.v9-ui .day{min-height:72px;padding:6px}.v9-ui .calendar-grid{padding:6px}
+}
+
+
+
+/* V10: Today date beside the page title */
+.v10-ui .page-title-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:3px}
+.v10-ui .page-title-row h1{margin:0}
+.v10-ui .today-date-nav{display:flex;align-items:center;gap:9px}
+.v10-ui .date-label-large{font-size:clamp(18px,1.35vw,22px);font-weight:850;color:#4b5871;margin:0;line-height:1.25;letter-spacing:-.01em}
+.v10-ui .day-nav-btn{width:34px;height:34px;border:1px solid #e2e7f0;border-radius:11px;background:#fff;color:#68738c;display:grid;place-items:center;font-size:23px;line-height:1;cursor:pointer;box-shadow:0 4px 12px rgba(73,83,112,.05);transition:.16s ease}
+.v10-ui .day-nav-btn:hover{background:#f5f3ff;color:#6658dc;border-color:#ded8ff;transform:translateY(-1px)}
+
+/* V10: restore V8 sidebar appearance */
+@media(min-width:900px){
+.v10-ui .app-shell{grid-template-columns:190px minmax(0,1fr);gap:24px;padding:22px 28px 42px}
+.v10-ui .sidebar{position:sticky;top:22px;align-self:start;min-height:0;height:auto;background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;overflow:visible}
+.v10-ui .sidebar-brand,.v10-ui .sidebar-foot{display:none}
+.v10-ui .bottom-nav{background:rgba(255,255,255,.9);border:1px solid #e6eaf0;border-radius:18px;padding:10px;box-shadow:0 8px 28px rgba(23,34,53,.08);backdrop-filter:blur(14px);gap:6px}
+.v10-ui .nav-btn{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;text-align:left;gap:8px;border-radius:13px;padding:11px 12px;color:#64748b}
+.v10-ui .nav-btn span{font-size:13px;font-weight:800;white-space:nowrap}
+.v10-ui .nav-btn .nav-icon{font-size:18px;color:#7b879e}
+.v10-ui .nav-btn.active{background:#e8f1ff;color:#1d4ed8;box-shadow:none}
+.v10-ui .nav-btn.active .nav-icon{color:#1d4ed8}
+}
+
+/* V10: restore V8 calendar appearance */
+.v10-ui .calendar-head{background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;margin:6px 0 16px}
+.v10-ui .calendar-grid{background:transparent;border:0;border-radius:0;padding:0;gap:8px;box-shadow:none}
+.v10-ui .dow{font-size:12px;font-weight:800;padding:4px;color:#6b7280}
+.v10-ui .day{min-height:118px;background:#fff;border:1px solid #e6eaf0;border-radius:15px;padding:9px;box-shadow:none}
+.v10-ui .day:nth-child(7n){border-right:1px solid #e6eaf0}
+.v10-ui .day:hover{background:#f8fafc}
+.v10-ui .day.selected{outline:2px solid #3b82f6;background:#fff;box-shadow:none;border-radius:15px}
+.v10-ui .weekend-day{background:#fff7f8!important;color:#d85f75!important;border-color:#f5dfe4!important}
+.v10-ui .holiday-day:not(.weekend-day){background:#fff6f7!important;color:#c75161!important;border-color:#ffd7dd!important}
+.v10-ui .day .marks{color:#64748b}
+@media(min-width:900px){.v10-ui .day .num{font-size:14px}.v10-ui .day .marks{font-size:11px;line-height:1.5}}
+@media(max-width:899px){.v10-ui .page-title-row{gap:10px}.v10-ui .date-label-large{font-size:16px}.v10-ui .day-nav-btn{width:31px;height:31px}.v10-ui .day{min-height:86px}}
+
+/* ================================
+   V11 Today header • edge date navigation
+   Only the Today header controls change; V10 content stays intact.
+   ================================ */
+.v11-ui .topbar.today-active{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;align-items:center;gap:18px;padding:20px 24px 18px}
+.v11-ui .topbar.today-active .page-heading{text-align:center;min-width:0}
+.v11-ui .topbar.today-active .eyebrow{text-align:center;margin-bottom:4px}
+.v11-ui .topbar.today-active .page-title-row{justify-content:center;align-items:center;gap:17px;flex-wrap:nowrap;margin-top:0}
+.v11-ui .topbar.today-active .page-title-row h1{font-size:29px;white-space:nowrap}
+.v11-ui .topbar.today-active .today-date-nav{display:flex;align-items:center;min-width:0}
+.v11-ui .topbar.today-active .date-label-large{font-size:clamp(18px,1.45vw,23px);font-weight:850;color:#4b5871;white-space:nowrap}
+.v11-ui .title-divider{display:block;width:1px;height:28px;background:linear-gradient(180deg,transparent,#cfd5e4 18%,#cfd5e4 82%,transparent);border-radius:999px;flex:none}
+.v11-ui .edge-day-nav{width:50px;height:50px;border:1px solid #e4e0ff;border-radius:16px;background:linear-gradient(145deg,#f5f3ff,#eeebff);color:#6658dc;display:grid;place-items:center;padding:0;cursor:pointer;box-shadow:0 8px 20px rgba(111,96,220,.10),inset 0 1px 0 rgba(255,255,255,.92);transition:transform .15s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}
+.v11-ui .edge-day-nav:hover{background:linear-gradient(145deg,#f0edff,#e9e5ff);border-color:#d9d2ff;box-shadow:0 11px 24px rgba(111,96,220,.16),inset 0 1px 0 rgba(255,255,255,.96);transform:translateY(-1px)}
+.v11-ui .edge-day-nav:active{transform:translateY(0) scale(.95);box-shadow:0 5px 12px rgba(111,96,220,.10)}
+.v11-ui .edge-day-nav:focus-visible{outline:3px solid rgba(117,103,232,.22);outline-offset:3px}
+/* V11.1: author display rules must not override the hidden attribute outside Today */
+.v11-ui .edge-day-nav[hidden],.v11-ui .today-date-nav[hidden],.v11-ui .title-divider[hidden]{display:none!important}
+.v11-ui .edge-chevron{width:12px;height:12px;display:block;border-top:2.5px solid currentColor;border-right:2.5px solid currentColor;border-radius:1px}
+.v11-ui .edge-chevron-left{transform:rotate(-135deg) translate(-1px,1px)}
+.v11-ui .edge-chevron-right{transform:rotate(45deg) translate(-1px,1px)}
+.v11-ui .topbar:not(.today-active) .page-heading{min-width:0}
+
+@media(max-width:899px){
+  .v11-ui .topbar.today-active{grid-template-columns:44px minmax(0,1fr) 44px;gap:9px;padding:14px 12px 12px}
+  .v11-ui .edge-day-nav{width:40px;height:40px;border-radius:13px}
+  .v11-ui .topbar.today-active .page-title-row{gap:9px;flex-wrap:wrap}
+  .v11-ui .topbar.today-active .page-title-row h1{font-size:24px}
+  .v11-ui .topbar.today-active .date-label-large{font-size:16px}
+  .v11-ui .title-divider{height:22px}
+}
+
+</style>
+</head>
+<body class="v9-ui v10-ui v11-ui">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark">W</div>
+        <div class="brand-copy"><strong>งานบัญชี</strong><small>Work Planner</small></div>
+      </div>
+      <nav class="bottom-nav" aria-label="เมนูหลัก">
+        <button data-view="today" class="nav-btn active"><span class="nav-icon">◉</span><span>Today</span></button>
+        <button data-view="calendar" class="nav-btn"><span class="nav-icon">▦</span><span>Calendar</span></button>
+        <button data-view="tdl" class="nav-btn"><span class="nav-icon">▣</span><span>Monthly TDL</span></button>
+        <button data-view="settings" class="nav-btn"><span class="nav-icon">⚙</span><span>Settings</span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="profile-dot">B</div>
+        <div><strong>Benz</strong><small>ผู้ใช้งาน</small></div>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <button id="prevDay" class="day-nav-btn edge-day-nav edge-day-nav-prev" aria-label="วันก่อนหน้า" title="วันก่อนหน้า"><span class="edge-chevron edge-chevron-left" aria-hidden="true"></span></button>
+        <div class="page-heading">
+          <div class="eyebrow">WORK PLANNER</div>
+          <div class="page-title-row">
+            <h1 id="pageTitle">วันนี้</h1>
+            <span id="titleDivider" class="title-divider" aria-hidden="true"></span>
+            <div id="todayDateNav" class="today-date-nav">
+              <div id="dateLabel" class="date-label date-label-large"></div>
+            </div>
+          </div>
+        </div>
+        <button id="nextDay" class="day-nav-btn edge-day-nav edge-day-nav-next" aria-label="วันถัดไป" title="วันถัดไป"><span class="edge-chevron edge-chevron-right" aria-hidden="true"></span></button>
+        <button id="installBtn" class="ghost small" hidden>ติดตั้งบนคอม</button>
+      </header>
+      <main id="app"></main>
+    </section>
+  </div>
+
+  <div id="modal" class="modal hidden"><div class="sheet"><div class="sheet-handle"></div><div id="modalBody"></div></div></div>
+  <script type="module">
+
+function parseDateKey(dateKey){
+  const [y,m,d]=String(dateKey).split('-').map(Number);
+  return new Date(y,m-1,d);
+}
+function formatDateKey(date){
+  return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
+}
+function isWorkingDate(dateKey, blockedDates=[]){
+  const date=parseDateKey(dateKey),day=date.getDay(),blocked=new Set(blockedDates);
+  return day!==0 && day!==6 && !blocked.has(dateKey);
+}
+function nextWorkingDate(dateKey, blockedDates=[]){
+  let date=parseDateKey(dateKey),key=formatDateKey(date);
+  while(!isWorkingDate(key,blockedDates)){
+    date.setDate(date.getDate()+1);
+    key=formatDateKey(date);
+  }
+  return key;
+}
+function normalizeScheduledRounds(items=[], blockedDates=[]){
+  return items.map(item=>({
+    ...item,
+    rounds:Array.isArray(item.rounds)?item.rounds.map(round=>{
+      const plannedDate=round.plannedDate||round.date;
+      return {...round,plannedDate,date:nextWorkingDate(plannedDate,blockedDates)};
+    }):item.rounds
+  }));
+}
+
+function summarizeTasks(tasks){
+  return tasks.reduce((acc,t)=>{acc.total++; if(t.status==='done') acc.done++; else if(t.status==='waiting') acc.waiting++; else acc.todo++; return acc;},{total:0,done:0,waiting:0,todo:0});
+}
+function pendingTasks(tasks){ return tasks.filter(t=>t.status!=='done'); }
+function specialPendingTasks(tasks){ return tasks.filter(t=>t.special && t.status!=='done'); }
+
+function deriveRoundStatus(rounds=[]){
+  if(!rounds.length) return 'todo';
+  const statuses=rounds.map(r=>r.status);
+  if(statuses.every(s=>s==='done')) return 'done';
+  if(statuses.every(s=>s==='todo')) return 'todo';
+  return 'waiting';
+}
+
+function flattenTDL(items=[]){
+  return items.flatMap(item=>{
+    if(Array.isArray(item.rounds) && item.rounds.length){
+      return item.rounds.map(round=>({
+        id:`${item.id}::${round.date}`,
+        parentId:item.id,
+        title:item.title,
+        section:item.section,
+        note:round.note||item.note||'',
+        date:round.date,
+        status:round.status,
+        recurring:true
+      }));
+    }
+    return [{...item}];
+  });
+}
+
+function summarizeTDL(items=[]){
+  return summarizeTasks(flattenTDL(items));
+}
+
+function pendingTDLItems(items=[]){
+  return flattenTDL(items).filter(item=>item.status!=='done');
+}
+
+function nextStatus(status){
+  const order=['todo','waiting','done'];
+  const i=order.indexOf(status);
+  return order[(i<0?0:i+1)%order.length];
+}
+
+function moveRoundDate(rounds=[],fromDate,toDate){
+  return rounds.map(round=>round.date===fromDate?{...round,date:toDate}:{...round});
+}
+
+function scheduledTaskId(itemId,date){
+  return `scheduled::${itemId}::${date}`;
+}
+
+function collectDailyScheduleEntries(items=[],date){
+  const byKey=new Map();
+  for(const item of items){
+    if(item.syncToToday===false || !Array.isArray(item.rounds)) continue;
+    const round=item.rounds.find(r=>r.date===date);
+    if(!round) continue;
+    const specs=Array.isArray(item.dailyTasks)&&item.dailyTasks.length
+      ? item.dailyTasks
+      : [{key:item.id,cat:item.dailyCat||'incoming',title:item.title,subheading:item.subheading||'',sub:item.subtitle||''}];
+    for(const spec of specs){
+      const key=spec.key||`${item.id}:${spec.cat||''}:${spec.title||item.title||''}`;
+      if(!byKey.has(key)) byKey.set(key,{...spec,key,refs:[],_statuses:[]});
+      const entry=byKey.get(key);
+      entry.refs.push(`${item.id}::${date}`);
+      entry._statuses.push(round.status||'todo');
+    }
+  }
+  return [...byKey.values()].map(({_statuses,...entry})=>({...entry,status:deriveRoundStatus(_statuses.map(status=>({status})))}));
+}
+
+function moveLinkedRoundDate(items=[],itemId,fromDate,toDate){
+  const target=items.find(item=>item.id===itemId);
+  if(!target) return items.map(item=>({...item,rounds:Array.isArray(item.rounds)?item.rounds.map(r=>({...r})):item.rounds}));
+  const group=target.scheduleGroup;
+  return items.map(item=>{
+    const linked=item.id===itemId || (group && item.scheduleGroup===group);
+    if(!linked || !Array.isArray(item.rounds)) return {...item,rounds:Array.isArray(item.rounds)?item.rounds.map(r=>({...r})):item.rounds};
+    return {...item,rounds:moveRoundDate(item.rounds,fromDate,toDate)};
+  });
+}
+
+
+function makeBackupEnvelope(state, exportedAt=new Date().toISOString()){
+  if(!state || typeof state!=='object' || Array.isArray(state)) throw new Error('ไฟล์สำรองไม่ถูกต้อง');
+  return {format:'benz-daily-work-backup',version:1,exportedAt,state};
+}
+
+function parseBackupEnvelope(text){
+  let payload;
+  try{ payload=JSON.parse(text); }
+  catch{ throw new Error('ไฟล์สำรองไม่ถูกต้อง'); }
+  if(!payload || payload.format!=='benz-daily-work-backup' || payload.version!==1 || !payload.state || typeof payload.state!=='object' || Array.isArray(payload.state)){
+    throw new Error('ไฟล์สำรองไม่ถูกต้อง');
+  }
+  return payload.state;
+}
+
+
+const STATUS={todo:'ยังไม่ทำ',waiting:'รอ',done:'ทำแล้ว'};
+const STORAGE='benz-daily-demo-v7';
+const fmtKey=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+const monthKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+const dateFromKey=key=>{const [y,m,d]=key.split('-').map(Number);return new Date(y,m-1,d)};
+const thaiDate=d=>new Intl.DateTimeFormat('th-TH',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);
+const thaiMonth=d=>new Intl.DateTimeFormat('th-TH',{month:'long',year:'numeric'}).format(d);
+const thaiShortDate=key=>new Intl.DateTimeFormat('th-TH',{day:'numeric',month:'short'}).format(dateFromKey(key));
+const monthStartEnd=(y,m)=>({start:`${y}-${String(m+1).padStart(2,'0')}-01`,prefix:`${y}-${String(m+1).padStart(2,'0')}-`});
+
+function seedDailyCategories(){return [
+  {id:'docs',title:'1. ปริ้นเอกสาร / เช็คยอด / เตรียมเอกสาร',tone:'blue',builtin:true},
+  {id:'incoming',title:'2. คีย์รับเงิน INCOMING',tone:'peach',builtin:true},
+  {id:'reconcile',title:'3. Reconcile ขาบัญชี',tone:'green',builtin:true}
+]}
+function seedDailyTemplates(){return [
+  {id:'tpl-d1',cat:'docs',title:'Statement',sub:'',special:false},
+  {id:'tpl-d2',cat:'docs',title:'รายงานขาย / สลิป ของหน้าร้าน',sub:'',special:false},
+  {id:'tpl-d3',cat:'docs',title:'ใบค่าธรรมเนียมรูดบัตร KBANK',sub:'',special:false},
+  {id:'tpl-d4',cat:'docs',title:'ใบค่าธรรมเนียมรูดบัตร KTC',sub:'',special:false},
+  {id:'tpl-d5',cat:'docs',title:'ใบค่าธรรมเนียมรูดบัตร SCB',sub:'',special:false},
+  {id:'tpl-d6',cat:'docs',title:'ใบค่าธน. ในแพลตฟอร์ม HOME PRO',sub:'',special:false},
+  {id:'tpl-d7',cat:'docs',title:'ใบค่าธน. ในแพลตฟอร์มLine Shop',sub:'',special:false},
+  {id:'tpl-d8',cat:'docs',title:'เช็ค Mail / ดูเอกสารที่เกี่ยวข้อง',sub:'',special:false},
+  {id:'tpl-d9',cat:'docs',title:'ตรวจสอบไม่ทราบที่มา ส่ง พี่ตุ๊ก',sub:'',special:false},
+  {id:'tpl-i1',cat:'incoming',title:'คีย์รับเงินขายสาขา/บูธ',sub:'',special:false},
+  {id:'tpl-i2',cat:'incoming',title:'คีย์พัก Sale Order',sub:'',special:false},
+  {id:'tpl-i3',cat:'incoming',title:'คีย์รับเงิน Line/Face (Chat)',sub:'',special:false},
+  {id:'tpl-i4',cat:'incoming',title:'คีย์รับเงินHOME PRO',sub:'',special:false},
+  {id:'tpl-i5',cat:'incoming',title:'คีย์รับเงิน LINE SHOP',sub:'',special:false},
+  {id:'tpl-r1',cat:'reconcile',title:'113301 เงินสดรอเคลียร์',sub:'',special:false},
+  {id:'tpl-r2',cat:'reconcile',title:'113302 เงินโอนรอเคลียร์',sub:'',special:false}
+]}
+
+function seedTDLSections(){return [
+  {id:'incoming',title:'1. คีย์รับเงิน INCOMING',icon:'💰',tone:'peach',builtin:true},
+  {id:'reconcile',title:'2. Reconcile ขาบัญชี',icon:'🔄',tone:'green',builtin:true},
+  {id:'bank',title:'3.เช็ค BANK',icon:'🏦',tone:'blue',builtin:true},
+  {id:'detail',title:'4. ทำ Detail (ทำช่วง วันที่ 1-10 ของทุกเดือน)',icon:'📋',tone:'purple',builtin:true},
+  {id:'meeting',title:'5.สรุปงานเตรียมประชุม',icon:'🗓️',tone:'yellow',builtin:true}
+]}
+
+function fridays(y,m){const out=[];for(let d=1;d<=31;d++){const x=new Date(y,m,d);if(x.getMonth()!==m)break;if(x.getDay()===5)out.push(fmtKey(x));}return out}
+function roundDates(y,m,days,statuses=[],notes=[]){return days.map((day,i)=>{const date=typeof day==='string'?day:fmtKey(new Date(y,m,day));return {plannedDate:date,date,status:statuses[i]||'todo',note:notes[i]||''}})}
+function seedTDL(y,m){
+  const fridayRounds=fridays(y,m).map(date=>({plannedDate:date,date,status:'todo',note:''}));
+  const monthEnd=new Date(y,m+1,0).getDate();
+  const centralDocs=[
+    {key:'central-remittance',cat:'docs',subheading:'เอกสารรับเงิน Cen ฝากขาย',title:'ใบRemittance'},
+    {key:'central-payment-report',cat:'docs',subheading:'เอกสารรับเงิน Cen ฝากขาย',title:'ใบรายงานการจ่ายเงิน'},
+    {key:'central-expense',cat:'docs',subheading:'เอกสารรับเงิน Cen ฝากขาย',title:'ใบเสร็จค่าใช้จ่าย (หัวCentral)'},
+    {key:'central-sales-report',cat:'docs',subheading:'เอกสารรับเงิน Cen ฝากขาย',title:'ใบรายงานการขาย'},
+    {key:'central-incoming',cat:'incoming',title:'คีย์รับเงิน Cen ฝากขาย'}
+  ];
+  const repairDocs=[
+    {key:'repair-post',cat:'docs',subheading:'เอกสารรับเงิน Cen ของซ่อม',title:'ใบ Post-Payment SCB (ของซ่อม)'},
+    {key:'repair-sales-report',cat:'docs',subheading:'เอกสารรับเงิน Cen ของซ่อม',title:'ใบรายงานการขาย'},
+    {key:'repair-incoming',cat:'incoming',title:'คีย์รับเงิน Cen ของซ่อม'}
+  ];
+  const onlineDocs=[
+    {key:'online-prepayment',cat:'docs',subheading:'เอกสารรับเงิน Cen Online',title:'ใบ Pre-Payment SCB'},
+    {key:'online-expense',cat:'docs',subheading:'เอกสารรับเงิน Cen Online',title:'ใบเสร็จค่าใช้จ่าย (หัวCentral)'},
+    {key:'online-incoming',cat:'incoming',title:'คีย์รับเงิน Cen Online'}
+  ];
+  const web123Docs=[
+    {key:'123-remittance',cat:'docs',subheading:'เอกสารรับเงิน 123',title:'ใบRemittance 123'},
+    {key:'123-fee',cat:'docs',subheading:'เอกสารรับเงิน 123',title:'ใบเสร็จค่าธน. 123'},
+    {key:'123-incoming',cat:'incoming',title:'คีย์รับเงิน 123'}
+  ];
+  const clinicDocs=[
+    {key:'clinic-docs',cat:'docs',title:'ชุดรับเงินคลินิก'},
+    {key:'clinic-incoming',cat:'incoming',title:'คีย์รับเงินคลินิก'}
+  ];
+  const migrateDaily=[{key:'marketplace-migrate',cat:'incoming',title:'MIGGRATE LAZADA / SHOPEE'}];
+  return [
+    {id:'in-branch',section:'incoming',title:'คีย์รับเงินขายสาขา/บูธ',subtitle:'ทุกวัน',status:'todo',note:''},
+    {id:'in-sale',section:'incoming',title:'คีย์พัก Sale Order',subtitle:'ทุกวัน',status:'todo',note:''},
+    {id:'in-chat',section:'incoming',title:'คีย์รับเงิน Line/Face (Chat)',subtitle:'ทุกวัน',status:'todo',note:''},
+    {id:'in-homepro',section:'incoming',title:'คีย์รับเงินHOME PRO',subtitle:'ทุกวัน',status:'todo',note:''},
+    {id:'in-lineshop',section:'incoming',title:'คีย์รับเงิน LINE SHOP',subtitle:'ทุกวัน',status:'todo',note:''},
+    {id:'in-central',section:'incoming',title:'คีย์รับเงิน Cen ฝากขาย',subtitle:'วันที่ 5 และ 18 • แก้วันที่รายเดือนได้',rounds:roundDates(y,m,[5,18]),dailyTasks:centralDocs},
+    {id:'in-cenrepair',section:'incoming',title:'คีย์รับเงิน Cen ของซ่อม',subtitle:'วันที่ 5 และ 18 • แก้วันที่รายเดือนได้',rounds:roundDates(y,m,[5,18]),dailyTasks:repairDocs},
+    {id:'in-cenonline',section:'incoming',title:'คีย์รับเงิน Cen Online',subtitle:'วันที่ 13 และ 27 • แก้วันที่รายเดือนได้',rounds:roundDates(y,m,[13,27]),dailyTasks:onlineDocs},
+    {id:'in-123',section:'incoming',title:'คีย์รับเงิน 123',subtitle:'ทุกวันศุกร์ • แก้วันที่รายเดือนได้',rounds:fridayRounds.map(r=>({...r})),dailyTasks:web123Docs},
+    {id:'in-clinic',section:'incoming',title:'คีย์รับเงินคลินิก',subtitle:'วันที่ 15 และสิ้นเดือน • แก้วันที่รายเดือนได้',rounds:roundDates(y,m,[15,monthEnd]),dailyTasks:clinicDocs},
+    {id:'in-lazada',section:'incoming',title:'คีย์รับเงิน LAZADA',subtitle:'ทุกวันศุกร์ • แก้วันที่รายเดือนได้',scheduleGroup:'marketplace-friday',rounds:fridayRounds.map(r=>({...r})),dailyTasks:migrateDaily},
+    {id:'in-shopee',section:'incoming',title:'คีย์รับเงิน Shopee',subtitle:'ทุกวันศุกร์ • แก้วันที่รายเดือนได้',scheduleGroup:'marketplace-friday',rounds:fridayRounds.map(r=>({...r})),dailyTasks:migrateDaily},
+    {id:'in-tiktok',section:'incoming',title:'คีย์รับเงิน TIKTOK',subtitle:'ทำทุกสิ้นเดือน • ติดตามใน TDL เท่านั้น',status:'todo',note:'',syncToToday:false},
+    {id:'in-2c2p',section:'incoming',title:'คีย์รับเงิน 2C2P',subtitle:'ทำทุกสิ้นเดือน • ติดตามใน TDL เท่านั้น',status:'todo',note:'',syncToToday:false},
+
+    {id:'rec-113301',section:'reconcile',title:'113301 เงินสดรอเคลียร์',status:'todo',note:''},
+    {id:'rec-113302',section:'reconcile',title:'113302 เงินโอนรอเคลียร์',status:'todo',note:''},
+    {id:'rec-113305',section:'reconcile',title:'113305 บัญชีพักค่าธรรมเนียมธนาคาร',status:'todo',note:''},
+    {id:'rec-113112',section:'reconcile',title:'113112 บัญชีพัก Central',status:'todo',note:''},
+    {id:'rec-113109',section:'reconcile',title:'113109 Suspense Deduct AR - Online platform',status:'todo',note:''},
+    {id:'rec-113108',section:'reconcile',title:'113108 ลูกหนี้ - Wallet Shopee',status:'todo',note:''},
+    {id:'rec-113110',section:'reconcile',title:'113110 ลูกหนี้ - Wallet Tiktok',status:'todo',note:''},
+    {id:'rec-113115',section:'reconcile',title:'113115 ลูกหนี้ - Wallet Lazada',status:'todo',note:''},
+    {id:'rec-113113',section:'reconcile',title:'113113 ลูกหนี้ - Wallet Website',status:'todo',note:''},
+    {id:'rec-113308',section:'reconcile',title:'113308 บัญชีพักรับเงิน Sale Order - Central',status:'todo',note:''},
+    {id:'rec-216501',section:'reconcile',title:'216501 บัญชีพักรอตรวจสอบ',status:'todo',note:''},
+    {id:'rec-116401',section:'reconcile',title:'116401 ภาษีถูกหัก ณ ที่จ่าย',status:'todo',note:''},
+    {id:'rec-113111',section:'reconcile',title:'113111 ลูกหนี้แต้ม The 1 Card',status:'todo',note:''},
+    {id:'rec-113306',section:'reconcile',title:'113306 บัญชีพัก Line Shopping',status:'todo',note:''},
+    {id:'rec-211205',section:'reconcile',title:'211205 เงินรับล่วงหน้า Shopee Fast Pay',status:'todo',note:''},
+    {id:'rec-113303',section:'reconcile',title:'113303 เช็ครับล่วงหน้า',status:'todo',note:''},
+    {id:'rec-113901',section:'reconcile',title:'113901 ค่าเผื่อหนี้สงสัยจะสูญ-ลูกหนี้การค้า',status:'todo',note:''},
+    {id:'rec-116201',section:'reconcile',title:'116201 รายได้ค้างรับ',status:'todo',note:''},
+    {id:'rec-113114',section:'reconcile',title:'113114 ลูกหนี้ One Siam',status:'todo',note:''},
+    {id:'rec-113116',section:'reconcile',title:'113116 ลูกหนี้ - Wallet Shopee Outlet',status:'todo',note:''},
+    {id:'rec-113307',section:'reconcile',title:'113307 บัญชีพัก Facebook Pay',status:'todo',note:''},
+
+    {id:'bank-111202',section:'bank',title:'111202 เงินฝากกระแสรายวัน-KBANK-0388151056',status:'todo',note:''},
+    {id:'bank-111204',section:'bank',title:'111204 เงินฝากกระแสรายวัน-BAY-2520009807',status:'todo',note:''},
+    {id:'bank-111302',section:'bank',title:'111302 เงินฝากออมทรัพย์-SCB156-405251-1',status:'todo',note:''},
+    {id:'bank-111304',section:'bank',title:'111304 เงินฝากออมทรัพย์-BBL-0140133877',status:'todo',note:''},
+    {id:'bank-111307',section:'bank',title:'111307 เงินฝากออมทรัพย์-KBANK-USD-0809209040',status:'todo',note:''},
+    {id:'bank-111201',section:'bank',title:'111201 เงินฝากกระแสรายวัน-BBL-0143004554',status:'todo',note:''},
+    {id:'bank-111203',section:'bank',title:'111203 เงินฝากกระแสรายวัน-KBANK-หจก-7451038030',status:'todo',note:''},
+    {id:'bank-111303',section:'bank',title:'111303 เงินฝากออมทรัพย์-BAY-8009992935',status:'todo',note:''},
+    {id:'bank-111305',section:'bank',title:'111305 เงินฝากออมทรัพย์-KBANK (หจก)-7452545106',status:'todo',note:''},
+    {id:'bank-111306',section:'bank',title:'111306 เงินฝากออมทรัพย์-KBANK -928242633',status:'todo',note:''},
+
+    {id:'detail-main',section:'detail',title:'ทำรายการ Detail ขาบัญชีที่ Reconcile 21 ขาบัญชี',subtitle:'ทำช่วง วันที่ 1-10 ของทุกเดือน',status:'todo',note:''},
+
+    {id:'meeting-forecast',section:'meeting',title:'ตารางสรุปประมาณการรับเงิน',subtitle:'เสนองานทุกวันที่ 16 ของเดือน • แก้วันที่ได้',scheduleGroup:'meeting-summary',rounds:roundDates(y,m,[16]),syncToToday:false},
+    {id:'meeting-accrued',section:'meeting',title:'ตารางรายการรายได้ค้างรับ ณ สิ้นเดือน',subtitle:'เสนองานทุกวันที่ 16 ของเดือน • แก้วันที่ได้',scheduleGroup:'meeting-summary',rounds:roundDates(y,m,[16]),syncToToday:false},
+    {id:'meeting-balance',section:'meeting',title:'ตารางสรุปเงินในบัญชีคงเหลือ ณ ปัจจุบัน',subtitle:'เสนองานทุกวันที่ 16 ของเดือน • แก้วันที่ได้',scheduleGroup:'meeting-summary',rounds:roundDates(y,m,[16]),syncToToday:false}
+  ];
+}
+
+function defaultEvents(now){
+  return {};
+}
+function defaultState(){
+  const now=new Date(); const today=fmtKey(now);
+  return {
+    selected:today,view:'today',days:{},events:defaultEvents(now),tdl:{},tdlFilter:'all',
+    dailyCategories:seedDailyCategories(),dailyTemplates:seedDailyTemplates(),dayCategories:{},
+    tdlSections:seedTDLSections(),monthTdlSections:{},tdlCollapsed:{},dailyCollapsed:{},tdlTemplates:[]
+  };
+}
+function normalizeState(raw){
+  const base=defaultState(),s=raw&&typeof raw==='object'?raw:{};
+  return {
+    ...base,...s,
+    days:s.days||{},events:s.events||base.events,tdl:s.tdl||{},
+    dailyCategories:Array.isArray(s.dailyCategories)?s.dailyCategories:base.dailyCategories,
+    dailyTemplates:Array.isArray(s.dailyTemplates)?s.dailyTemplates:base.dailyTemplates,
+    dayCategories:s.dayCategories||{},
+    tdlSections:Array.isArray(s.tdlSections)?s.tdlSections:base.tdlSections,
+    monthTdlSections:s.monthTdlSections||{},tdlCollapsed:s.tdlCollapsed||{},dailyCollapsed:s.dailyCollapsed||{},
+    tdlTemplates:Array.isArray(s.tdlTemplates)?s.tdlTemplates:[]
+  };
+}
+let state=(()=>{try{return normalizeState(JSON.parse(localStorage.getItem(STORAGE)))}catch{return defaultState()}})();
+function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
+function selectedDate(){return dateFromKey(state.selected)}
+function currentMonthKey(){return monthKey(selectedDate())}
+function holidayDates(){
+  return Object.entries(state.events||{}).filter(([,events])=>events?.some(e=>e.type==='holiday')).map(([key])=>key);
+}
+function isWorkingDayKey(key){return isWorkingDate(key,holidayDates())}
+function normalizeTdlSchedules(items){return normalizeScheduledRounds(items,holidayDates())}
+function monthShiftedDate(d,delta){return new Date(d.getFullYear(),d.getMonth()+delta,1)}
+function syncRelevantScheduleMonths(d=selectedDate()){
+  syncSchedulesForMonth(monthShiftedDate(d,-1));
+  syncSchedulesForMonth(d);
+}
+function rebuildSchedulesForHolidayChange(key){
+  const d=dateFromKey(key);
+  syncSchedulesForMonth(monthShiftedDate(d,-1));
+  syncSchedulesForMonth(d);
+}
+
+function categoriesFor(key=state.selected){return [...state.dailyCategories,...(state.dayCategories[key]||[])]}
+function cloneTemplate(t,key){return {...t,id:`${t.id}@${key}`,templateId:t.id,status:'todo',note:'',special:!!t.special}}
+function tasksFor(key){
+  if(!state.days[key])state.days[key]=[];
+  const list=state.days[key];
+  if(!isWorkingDayKey(key))return list.filter(t=>t.allowOnNonWorking===true);
+  for(const tpl of state.dailyTemplates){if(!list.some(x=>x.templateId===tpl.id))list.push(cloneTemplate(tpl,key));}
+  return list;
+}
+function addPersistentTdlTemplates(items,y,m,key){
+  for(const tpl of state.tdlTemplates){
+    if(items.some(i=>i.templateId===tpl.id))continue;
+    let item={...tpl,id:`${tpl.id}@${key}`,templateId:tpl.id,status:'todo',note:tpl.note||''};
+    if(tpl.roundDays?.length)item={...item,rounds:roundDates(y,m,tpl.roundDays),status:undefined};
+    items.push(item);
+  }
+}
+function tdlForDate(d){
+  const key=monthKey(d);
+  if(!state.tdl[key])state.tdl[key]=seedTDL(d.getFullYear(),d.getMonth());
+  addPersistentTdlTemplates(state.tdl[key],d.getFullYear(),d.getMonth(),key);
+  state.tdl[key]=normalizeTdlSchedules(state.tdl[key]);
+  return state.tdl[key];
+}
+function tdlForSelected(){return tdlForDate(selectedDate())}
+function tdlSectionsFor(d=selectedDate()){
+  const key=monthKey(d); return [...state.tdlSections,...(state.monthTdlSections[key]||[])];
+}
+function collapseKey(sectionId,d=selectedDate()){return `${monthKey(d)}::${sectionId}`}
+function dailyCollapseKey(sectionId,key=state.selected){return `${key}::${sectionId}`}
+
+function scheduledCatForSection(section){return section==='incoming'?'incoming':section==='reconcile'?'reconcile':'docs'}
+function syncSchedulesForMonth(d=selectedDate()){
+  const sourceMonth=monthKey(d),items=tdlForDate(d);
+  for(const key of Object.keys(state.days)){
+    state.days[key]=state.days[key].filter(t=>!(t.source==='tdl'&&t.tdlMonth===sourceMonth));
+  }
+  for(const key of Object.keys(state.events)){
+    state.events[key]=state.events[key].filter(e=>!(e.source==='tdl'&&e.tdlMonth===sourceMonth));
+    if(!state.events[key].length)delete state.events[key];
+  }
+  const dates=[...new Set(items.flatMap(item=>(item.rounds||[]).map(round=>round.date)).filter(Boolean))].sort();
+  for(const key of dates){
+    if(!isWorkingDayKey(key))continue;
+    const entries=collectDailyScheduleEntries(items,key);
+    for(const entry of entries){
+      const day=tasksFor(key);
+      day.push({
+        id:scheduledTaskId(entry.key,key),cat:entry.cat||'incoming',title:entry.title,
+        sub:entry.sub||`งานตามรอบจาก TDL • ${thaiShortDate(key)}`,subheading:entry.subheading||'',
+        status:entry.status,note:'',special:true,source:'tdl',tdlMonth:sourceMonth,tdlRefs:entry.refs
+      });
+      (state.events[key]??=[]).push({type:'special',title:entry.title,source:'tdl',tdlMonth:sourceMonth,itemId:entry.key});
+    }
+  }
+}
+
+const app=document.querySelector('#app'),pageTitle=document.querySelector('#pageTitle'),dateLabel=document.querySelector('#dateLabel'),todayDateNav=document.querySelector('#todayDateNav'),topbar=document.querySelector('.topbar'),prevDay=document.querySelector('#prevDay'),nextDay=document.querySelector('#nextDay'),titleDivider=document.querySelector('#titleDivider'),modal=document.querySelector('#modal'),modalBody=document.querySelector('#modalBody');
+function setView(view){state.view=view;save();document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));render()}
+document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+document.querySelector('#prevDay').onclick=()=>shiftDay(-1);
+document.querySelector('#nextDay').onclick=()=>shiftDay(1);
+function openModal(html){modalBody.innerHTML=html;modal.classList.remove('hidden')}
+function closeModal(){modal.classList.add('hidden')}
+modal.onclick=e=>{if(e.target===modal)closeModal()};
+function escapeHtml(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]))}
+function toneOptions(selected='blue'){return ['blue','peach','green','purple','yellow','pink'].map(x=>`<option value="${x}" ${x===selected?'selected':''}>${({blue:'ฟ้า',peach:'พีช',green:'เขียว',purple:'ม่วง',yellow:'เหลือง',pink:'ชมพู'})[x]}</option>`).join('')}
+
+function render(){
+  const d=selectedDate();syncRelevantScheduleMonths(d);dateLabel.textContent=thaiDate(d);
+  const isTodayView=state.view==='today';
+  todayDateNav.hidden=!isTodayView;
+  titleDivider.hidden=!isTodayView;
+  prevDay.hidden=!isTodayView;
+  nextDay.hidden=!isTodayView;
+  topbar.classList.toggle('today-active',isTodayView);
+  if(state.view==='today'){pageTitle.textContent='Today';renderToday()}
+  else if(state.view==='calendar'){pageTitle.textContent='Calendar';renderCalendar()}
+  else if(state.view==='tdl'){pageTitle.textContent='Monthly TDL';renderTDL()}
+  else{pageTitle.textContent='Settings';renderSettings()}
+  save();
+}
+
+function taskLabel(t){return `${t.special?'⭐ ':''}${escapeHtml(t.title||'')}`}
+function renderDailyTaskList(list){
+  let html='',lastSubheading='';
+  for(const task of list){
+    if(task.subheading && task.subheading!==lastSubheading){
+      html+=`<div class="daily-subheading">${escapeHtml(task.subheading)}</div>`;
+      lastSubheading=task.subheading;
+    }else if(!task.subheading) lastSubheading='';
+    html+=taskHtml(task);
+  }
+  return html;
+}
+function renderToday(){
+  const working=isWorkingDayKey(state.selected),tasks=tasksFor(state.selected),sum=summarizeTasks(tasks),specials=specialPendingTasks(tasks),cats=categoriesFor();
+  let html=`<section class="hero compact-hero"><div class="hero-top"><div><span class="pill">📅 ${thaiDate(selectedDate())}</span><h2>งานวันนี้</h2></div><span class="pill">${sum.done}/${sum.total}</span></div><div class="stats"><div class="stat"><strong>${sum.total}</strong><span>ทั้งหมด</span></div><div class="stat"><strong>${sum.done}</strong><span>ทำแล้ว</span></div><div class="stat"><strong>${sum.waiting}</strong><span>รอ</span></div><div class="stat"><strong>${sum.todo}</strong><span>ยังไม่ทำ</span></div></div></section>`;
+  if(!working){const weekend=[0,6].includes(selectedDate().getDay());html+=`<div class="holiday-banner"><strong>🏖️ ${weekend?'เสาร์–อาทิตย์':'หยุดวันนี้'}</strong><br><small>วันนี้ไม่มีงานประจำ งานตามรอบจะเลื่อนไปวันทำงานถัดไปอัตโนมัติ</small></div>`;}
+  if(working&&specials.length)html+=`<div class="special-banner"><div><strong>⭐ งานสำคัญ / งานตามรอบ ${specials.length} รายการ</strong><br><small>${specials.slice(0,3).map(t=>escapeHtml(t.title)).join(' • ')}</small></div></div>`;
+  if(working)for(const cat of cats){
+    const list=tasks.filter(t=>t.cat===cat.id),collapsed=!!state.dailyCollapsed[dailyCollapseKey(cat.id)];
+    html+=`<section class="section ${cat.tone||'blue'}"><div class="section-head"><div class="section-title">${escapeHtml(cat.title)}</div><div class="section-head-actions"><div class="section-count">${list.filter(x=>x.status!=='done').length} เหลือ</div><button class="collapse-btn" data-daily-collapse="${cat.id}" aria-label="ย่อขยาย" aria-expanded="${collapsed?'false':'true'}"><span class="chevron" aria-hidden="true"></span></button></div></div>${collapsed?'':`<div class="daily-section-body">${renderDailyTaskList(list)}<button class="add-row" data-add="${cat.id}">＋ เพิ่มงานในหัวข้อนี้</button></div>`}</section>`;
+  }
+  if(working)html+=`<button class="special-banner add-special" id="addSpecial"><div><strong>＋ เพิ่ม ⭐ งานพิเศษวันนี้</strong><br><small>เพิ่มเฉพาะวันนี้ และเน้นในแจ้งเตือน</small></div><span>›</span></button><button class="add-section-btn" id="addDailySection">＋ เพิ่มหัวข้อในหน้า วันนี้</button>`;
+  app.innerHTML=html;
+  app.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>cycleDailyStatus(b.dataset.status));
+  app.querySelectorAll('[data-note]').forEach(b=>b.onclick=()=>editDailyNote(b.dataset.note));
+  app.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>dailyTaskMenu(b.dataset.more));
+  app.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addDailyTask(b.dataset.add,false));
+  app.querySelectorAll('[data-daily-collapse]').forEach(b=>b.onclick=()=>{const k=dailyCollapseKey(b.dataset.dailyCollapse);state.dailyCollapsed[k]=!state.dailyCollapsed[k];save();renderToday()});
+  if(document.querySelector('#addSpecial'))document.querySelector('#addSpecial').onclick=()=>addDailyTask(cats[0]?.id||'docs',true);
+  if(document.querySelector('#addDailySection'))document.querySelector('#addDailySection').onclick=addDailySection;
+}
+
+function taskHtml(t){return `<div class="task easy-task ${t.status==='done'?'is-done':''}"><div class="task-main"><div class="task-name">${taskLabel(t)}</div>${t.sub?`<div class="task-sub">${escapeHtml(t.sub)}</div>`:''}${t.note?`<div class="task-note-preview">📝 ${escapeHtml(t.note)}</div>`:''}</div><button class="icon-btn note-icon ${t.note?'has-note':''}" data-note="${t.id}" aria-label="หมายเหตุ">📝</button><button class="status status-front ${t.status}" data-status="${t.id}"><span class="status-dot"></span><span>${STATUS[t.status]}</span></button><button class="more" data-more="${t.id}">⋮</button></div>`}
+function getTask(id){return tasksFor(state.selected).find(t=>t.id===id)}
+function locateTDL(ref,d=selectedDate()){
+  const preferred=tdlForDate(d);
+  if(ref.includes('::')){
+    const idx=ref.lastIndexOf('::'),id=ref.slice(0,idx),date=ref.slice(idx+2);
+    let item=preferred.find(x=>x.id===id),round=item?.rounds?.find(r=>r.date===date);
+    if(round)return {item,round};
+    for(const items of Object.values(state.tdl)){
+      item=items.find(x=>x.id===id);
+      round=item?.rounds?.find(r=>r.date===date);
+      if(round)return {item,round};
+    }
+    return {item:null,round:null};
+  }
+  return {item:preferred.find(x=>x.id===ref),round:null};
+}
+function updateLinkedTDLRounds(refs,status,note){
+  for(const ref of refs||[]){
+    const {round}=locateTDL(ref);
+    if(!round)continue;
+    if(status)round.status=status;
+    if(note!==undefined)round.note=note;
+  }
+}
+function cycleDailyStatus(id){
+  const t=getTask(id);if(!t)return;t.status=nextStatus(t.status);
+  if(t.source==='tdl')updateLinkedTDLRounds(t.tdlRefs||[t.tdlRef].filter(Boolean),t.status);
+  save();renderToday();
+}
+function editDailyNote(id){
+  const t=getTask(id);if(!t)return;openModal(`<h3>หมายเหตุ</h3><div class="field"><label>${taskLabel(t)}</label><textarea id="noteText">${escapeHtml(t.note||'')}</textarea></div><button class="primary big-btn" id="saveNote">บันทึกหมายเหตุ</button>`);
+  document.querySelector('#saveNote').onclick=()=>{t.note=document.querySelector('#noteText').value.trim();if(t.source==='tdl')updateLinkedTDLRounds(t.tdlRefs||[t.tdlRef].filter(Boolean),null,t.note);save();closeModal();renderToday()};
+}
+
+function addDailyTask(cat,special){
+  const cats=categoriesFor();openModal(`<h3>${special?'⭐ เพิ่มงานพิเศษ':'เพิ่มงาน'}</h3><div class="field"><label>ชื่องาน</label><input id="newName" placeholder="พิมพ์ชื่องาน"></div><div class="field"><label>รายละเอียดสั้น ๆ</label><input id="newSub" placeholder="เช่น KBANK / เอกสารรอมา"></div><div class="field"><label>หัวข้อ</label><select id="newCat">${cats.map(c=>`<option value="${c.id}" ${c.id===cat?'selected':''}>${escapeHtml(c.title)}</option>`).join('')}</select></div><div class="field"><label>ใช้เมื่อไหร่</label><select id="newScope"><option value="today">เฉพาะวันนี้</option><option value="daily">เป็นงานประจำทุกวัน</option></select></div><div class="field"><label>หมายเหตุ</label><textarea id="newNote"></textarea></div><button class="primary big-btn" id="saveTask">เพิ่มงาน</button>`);
+  document.querySelector('#saveTask').onclick=()=>{const title=document.querySelector('#newName').value.trim();if(!title)return;const catId=document.querySelector('#newCat').value,sub=document.querySelector('#newSub').value.trim(),note=document.querySelector('#newNote').value.trim(),scope=document.querySelector('#newScope').value;if(scope==='daily'){const tpl={id:'tpl-custom-'+Date.now(),cat:catId,title,sub,special:false};state.dailyTemplates.push(tpl);const current=tasksFor(state.selected).find(x=>x.templateId===tpl.id);if(current)current.note=note;}else tasksFor(state.selected).push({id:'day-'+Date.now(),cat:catId,title,sub,status:'todo',note,special});save();closeModal();renderToday()};
+}
+function addDailySection(){
+  openModal(`<h3>＋ เพิ่มหัวข้อหน้า วันนี้</h3><div class="field"><label>ชื่อหัวข้อ</label><input id="dailySecTitle" placeholder="เช่น 4. งานประชุม / งานเร่งด่วน"></div><div class="field"><label>สีหัวข้อ</label><select id="dailySecTone">${toneOptions('purple')}</select></div><div class="field"><label>ใช้เมื่อไหร่</label><select id="dailySecScope"><option value="today">เฉพาะวันนี้</option><option value="daily">ใช้เป็นหัวข้อประจำ</option></select></div><button class="primary big-btn" id="saveDailySec">เพิ่มหัวข้อ</button>`);
+  document.querySelector('#saveDailySec').onclick=()=>{const title=document.querySelector('#dailySecTitle').value.trim();if(!title)return;const sec={id:'daily-sec-'+Date.now(),title,tone:document.querySelector('#dailySecTone').value,builtin:false};if(document.querySelector('#dailySecScope').value==='daily')state.dailyCategories.push(sec);else(state.dayCategories[state.selected]??=[]).push(sec);save();closeModal();renderToday()};
+}
+function dailyTaskMenu(id){
+  const t=getTask(id);if(!t)return;const scheduled=t.source==='tdl';openModal(`<h3>${taskLabel(t)}</h3>${scheduled?'<div class="hint-card">งานนี้มาจากรอบวันที่ใน TDL หากต้องการย้ายวัน ให้แก้ที่หน้า TDL</div>':''}<div class="field"><label>แก้ชื่องาน</label><input id="menuTitle" value="${escapeHtml(t.title)}" ${scheduled?'disabled':''}></div><div class="field"><label>รายละเอียด</label><input id="menuSub" value="${escapeHtml(t.sub||'')}" ${scheduled?'disabled':''}></div><div class="row"><button class="primary" id="saveTaskEdit" ${scheduled?'disabled':''}>บันทึก</button>${scheduled?'<button class="ghost" id="goTdl">ไปหน้า TDL</button>':'<button class="ghost danger" id="deleteTask">ลบงาน</button>'}</div>`);
+  if(!scheduled){document.querySelector('#saveTaskEdit').onclick=()=>{t.title=document.querySelector('#menuTitle').value.trim()||t.title;t.sub=document.querySelector('#menuSub').value.trim();save();closeModal();renderToday()};document.querySelector('#deleteTask').onclick=()=>{state.days[state.selected]=tasksFor(state.selected).filter(x=>x.id!==id);save();closeModal();renderToday()};}
+  else document.querySelector('#goTdl').onclick=()=>{closeModal();setView('tdl')};
+}
+
+function renderCalendar(){
+  const d=selectedDate(),y=d.getFullYear(),m=d.getMonth(),first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();let html=`<div class="calendar-head"><button class="ghost" id="prevM">‹</button><strong>${thaiMonth(d)}</strong><button class="ghost" id="nextM">›</button></div><div class="calendar-grid">${['จ','อ','พ','พฤ','ศ','ส','อา'].map((x,i)=>`<div class="dow ${i>=5?'weekend-label':''}">${x}</div>`).join('')}`;
+  for(let i=0;i<start;i++)html+='<div></div>';
+  for(let n=1;n<=days;n++){
+    const dt=new Date(y,m,n),key=fmtKey(dt),weekend=dt.getDay()===0||dt.getDay()===6,ev=state.events[key]||[],holiday=ev.some(e=>e.type==='holiday');const nonWorking=weekend||holiday,ts=nonWorking?[]:(state.days[key]||[]),sum=summarizeTasks(ts),marks=[];
+    if(holiday&&!weekend)marks.push('🏖️ หยุด');
+    if(!nonWorking){
+      if(ev.some(e=>e.type==='meeting'))marks.push('👥 ประชุม');
+      if(ev.some(e=>e.type==='special')||ts.some(t=>t.special))marks.push('⭐ งาน');
+      if(ts.length)marks.push(sum.todo+sum.waiting===0?'✅ ครบ':`⏳ ${sum.todo+sum.waiting}`);
+    }
+    html+=`<button class="day ${weekend?'weekend-day':''} ${holiday?'holiday-day':''} ${key===state.selected?'selected':''}" data-day="${key}"><div class="num">${n}</div><div class="marks">${marks.slice(0,2).join('<br>')}</div></button>`;
+  }
+  html+='</div><div class="toolbar"><button class="ghost" id="addEvent">＋ เพิ่มวันหยุด / ประชุม / งาน</button></div>';app.innerHTML=html;
+  document.querySelector('#prevM').onclick=()=>shiftMonth(-1);document.querySelector('#nextM').onclick=()=>shiftMonth(1);app.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{state.selected=b.dataset.day;setView('today')});document.querySelector('#addEvent').onclick=addCalendarEvent;
+}
+function shiftDay(delta){const d=selectedDate();d.setDate(d.getDate()+delta);state.selected=fmtKey(d);save();render()}
+function shiftMonth(delta){const d=selectedDate();state.selected=fmtKey(new Date(d.getFullYear(),d.getMonth()+delta,1));save();render()}
+function addCalendarEvent(){openModal(`<h3>เพิ่มรายการในปฏิทิน</h3><div class="field"><label>วันที่</label><input id="evDate" type="date" value="${state.selected}"></div><div class="field"><label>ประเภท</label><select id="evType"><option value="meeting">ประชุม</option><option value="holiday">หยุดวันนี้ • เลื่อนงานตามรอบอัตโนมัติ</option><option value="special">งานพิเศษ</option></select></div><div class="field"><label>รายละเอียด</label><input id="evTitle" placeholder="เช่น ลาพักร้อน / ประชุมยอดขาย"></div><div class="hint-card">ถ้าเลือก “หยุดวันนี้” งานตามรอบจะย้ายไปวันทำงานถัดไป และวันหยุดจะแสดงเฉพาะคำว่า “หยุด” ในปฏิทิน</div><button class="primary big-btn" id="saveEvent">บันทึก</button>`);document.querySelector('#saveEvent').onclick=()=>{const k=document.querySelector('#evDate').value,type=document.querySelector('#evType').value,t=document.querySelector('#evTitle').value.trim()||(type==='holiday'?'หยุด':'');if(!t)return;(state.events[k]??=[]).push({type,title:t,source:'manual'});if(type==='holiday')rebuildSchedulesForHolidayChange(k);save();closeModal();renderCalendar()}}
+
+function hasPendingTDL(item){return item.rounds?.length?item.rounds.some(r=>r.status!=='done'):item.status!=='done'}
+function renderTDL(){
+  const d=selectedDate(),items=tdlForSelected(),sections=tdlSectionsFor(),sum=summarizeTDL(items),pending=pendingTDLItems(items),pct=sum.total?Math.round(sum.done/sum.total*100):0;
+  let html=`<div class="calendar-head tdl-month"><button class="ghost" id="prevTdlM">‹</button><div><div class="eyebrow">รีเช็คงานทั้งเดือน</div><strong>${thaiMonth(d)}</strong></div><button class="ghost" id="nextTdlM">›</button></div><section class="tdl-overview"><div class="tdl-progress-row"><div><strong>${pct}%</strong><span>ตรวจครบ</span></div><div class="progress"><i style="width:${pct}%"></i></div></div><div class="stats light"><div class="stat"><strong>${sum.total}</strong><span>ทั้งหมด</span></div><div class="stat"><strong>${sum.done}</strong><span>ทำแล้ว</span></div><div class="stat"><strong>${sum.waiting}</strong><span>รอ</span></div><div class="stat"><strong>${sum.todo}</strong><span>ยังไม่ทำ</span></div></div><div class="tdl-filter"><button class="filter-btn ${state.tdlFilter==='all'?'active':''}" data-filter="all">ทั้งหมด</button><button class="filter-btn ${state.tdlFilter==='pending'?'active':''}" data-filter="pending">⚠️ ดูเฉพาะงานค้าง ${pending.length}</button></div></section>`;
+  for(const section of sections){
+    const list=items.filter(x=>x.section===section.id),visible=state.tdlFilter==='pending'?list.filter(hasPendingTDL):list,secSum=summarizeTDL(list),collapsed=!!state.tdlCollapsed[collapseKey(section.id,d)];
+    if(state.tdlFilter==='pending'&&!visible.length)continue;
+    html+=`<section class="tdl-section tone-${section.tone||'blue'}"><div class="tdl-section-head"><div class="tdl-head-title"><span>${section.icon||'📌'}</span><strong>${escapeHtml(section.title)}</strong></div><div class="tdl-head-actions"><span>${secSum.done}/${secSum.total}</span><button class="collapse-btn" data-collapse="${section.id}" aria-label="ย่อขยาย" aria-expanded="${collapsed?'false':'true'}"><span class="chevron" aria-hidden="true"></span></button></div></div>${collapsed?'':`<div class="tdl-section-body">${visible.length?visible.map(tdlItemHtml).join(''):'<div class="empty">ยังไม่มีรายการในหัวข้อนี้</div>'}<button class="add-row tdl-add-row" data-add-tdl="${section.id}">＋ เพิ่มงานในหัวข้อนี้</button></div>`}</section>`;
+  }
+  if(state.tdlFilter==='pending'&&!pending.length)html+=`<div class="empty success-empty">✅ เดือนนี้ตรวจครบแล้ว ไม่มีงานค้าง</div>`;
+  html+=`<button class="add-section-btn" id="addTdlSection">＋ เพิ่มหัวข้อ TDL ของเดือนนี้</button>`;
+  app.innerHTML=html;
+  document.querySelector('#prevTdlM').onclick=()=>shiftMonth(-1);document.querySelector('#nextTdlM').onclick=()=>shiftMonth(1);
+  app.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{state.tdlFilter=b.dataset.filter;save();renderTDL()});
+  app.querySelectorAll('[data-collapse]').forEach(b=>b.onclick=()=>{const k=collapseKey(b.dataset.collapse);state.tdlCollapsed[k]=!state.tdlCollapsed[k];save();renderTDL()});
+  app.querySelectorAll('[data-tdl-status]').forEach(b=>b.onclick=()=>cycleTDLStatus(b.dataset.tdlStatus));
+  app.querySelectorAll('[data-tdl-note]').forEach(b=>b.onclick=()=>editTDLNote(b.dataset.tdlNote));
+  app.querySelectorAll('[data-tdl-date]').forEach(b=>b.onclick=()=>editTDLRoundDate(b.dataset.tdlDate));
+  app.querySelectorAll('[data-tdl-more]').forEach(b=>b.onclick=()=>tdlTaskMenu(b.dataset.tdlMore));
+  app.querySelectorAll('[data-add-tdl]').forEach(b=>b.onclick=()=>addTDLTask(b.dataset.addTdl));
+  document.querySelector('#addTdlSection').onclick=addTDLSection;
+}
+function tdlItemHtml(item){
+  if(item.rounds?.length){const overall=deriveRoundStatus(item.rounds);return `<div class="tdl-task recurring"><div class="tdl-task-title"><div><strong>${escapeHtml(item.title)}</strong>${item.subtitle?`<small>${escapeHtml(item.subtitle)}</small>`:''}</div><div class="rec-title-actions"><span class="mini-status ${overall}">${STATUS[overall]}</span><button class="more" data-tdl-more="${item.id}">⋮</button></div></div><div class="round-list">${item.rounds.map(r=>`<div class="round-row"><button class="round-date-btn" data-tdl-date="${item.id}::${r.date}">📅 ${thaiShortDate(r.date)} <span>✎</span></button><button class="icon-btn ${r.note?'has-note':''}" data-tdl-note="${item.id}::${r.date}">📝</button><button class="status status-front small-status ${r.status}" data-tdl-status="${item.id}::${r.date}"><span class="status-dot"></span><span>${STATUS[r.status]}</span></button></div>`).join('')}</div></div>`}
+  return `<div class="tdl-task"><div class="tdl-task-body"><strong>${escapeHtml(item.title)}</strong>${item.subtitle?`<small>${escapeHtml(item.subtitle)}</small>`:''}${item.note?`<small class="note-text">📝 ${escapeHtml(item.note)}</small>`:''}</div><button class="icon-btn ${item.note?'has-note':''}" data-tdl-note="${item.id}">📝</button><button class="status status-front ${item.status}" data-tdl-status="${item.id}"><span class="status-dot"></span><span>${STATUS[item.status]}</span></button><button class="more" data-tdl-more="${item.id}">⋮</button></div>`;
+}
+function cycleTDLStatus(ref){
+  const {item,round}=locateTDL(ref),target=round||item;if(!target)return;target.status=nextStatus(target.status);
+  if(round)syncSchedulesForMonth(selectedDate());
+  save();renderTDL();
+}
+function editTDLNote(ref){
+  const {item,round}=locateTDL(ref),target=round||item;if(!target)return;openModal(`<h3>หมายเหตุ TDL</h3><div class="field"><label>${escapeHtml(item.title)}${round?` • ${thaiShortDate(round.date)}`:''}</label><textarea id="tdlNoteText">${escapeHtml(target.note||'')}</textarea></div><button class="primary big-btn" id="saveTdlNote">บันทึก</button>`);document.querySelector('#saveTdlNote').onclick=()=>{target.note=document.querySelector('#tdlNoteText').value.trim();save();closeModal();renderTDL()};
+}
+function editTDLRoundDate(ref){
+  const {item,round}=locateTDL(ref);if(!item||!round)return;const oldDate=round.date;
+  openModal(`<h3>📅 แก้รอบวันที่</h3><div class="field"><label>${escapeHtml(item.title)}</label><input id="roundDateInput" type="date" value="${round.date}"></div><div class="field"><label>หมายเหตุของรอบนี้</label><textarea id="roundDateNote">${escapeHtml(round.note||'')}</textarea></div><div class="hint-card">วันที่นี้แก้เฉพาะเดือนปัจจุบัน และงานที่เชื่อมกับหน้า วันนี้ / Calendar จะย้ายตามอัตโนมัติ</div><div class="row"><button class="ghost danger" id="deleteRound">ลบรอบนี้</button><button class="primary" id="saveRoundDate">บันทึก</button></div>`);
+  document.querySelector('#saveRoundDate').onclick=()=>{
+    const newDate=document.querySelector('#roundDateInput').value;if(!newDate)return;
+    const items=tdlForSelected(),group=item.scheduleGroup,linked=group?items.filter(x=>x.scheduleGroup===group):[item],effectiveDate=nextWorkingDate(newDate,holidayDates());
+    if(linked.some(x=>x.rounds?.some(r=>r.date===effectiveDate&&r.date!==oldDate))){alert('วันที่ทำงานจริงนี้มีรอบอยู่แล้ว');return}
+    for(const target of linked){
+      const targetRound=target.rounds?.find(r=>r.date===oldDate);
+      if(!targetRound)continue;
+      if(newDate!==oldDate){targetRound.plannedDate=newDate;targetRound.date=newDate;}
+    }
+    state.tdl[currentMonthKey()]=normalizeTdlSchedules(items);
+    const changed=state.tdl[currentMonthKey()].find(x=>x.id===item.id)?.rounds?.find(r=>r.date===effectiveDate||r.date===oldDate);
+    if(changed)changed.note=document.querySelector('#roundDateNote').value.trim();
+    syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL();
+  };
+  document.querySelector('#deleteRound').onclick=()=>{
+    const items=tdlForSelected(),group=item.scheduleGroup;
+    for(const target of items){if(target.id===item.id||(group&&target.scheduleGroup===group))target.rounds=target.rounds?.filter(r=>r.date!==oldDate)||target.rounds}
+    syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL();
+  };
+}
+
+function tdlTaskMenu(id){
+  const item=tdlForSelected().find(x=>x.id===id);if(!item)return;openModal(`<h3>แก้ไขงาน TDL</h3><div class="field"><label>ชื่องาน</label><input id="tdlMenuTitle" value="${escapeHtml(item.title)}"></div><div class="field"><label>รายละเอียด</label><input id="tdlMenuSub" value="${escapeHtml(item.subtitle||'')}"></div>${item.rounds?.length?'<button class="ghost big-btn" id="addRound">＋ เพิ่มรอบวันที่</button>':''}<div class="row"><button class="ghost danger" id="deleteTdlItem">ลบงาน</button><button class="primary" id="saveTdlItem">บันทึก</button></div>`);
+  document.querySelector('#saveTdlItem').onclick=()=>{item.title=document.querySelector('#tdlMenuTitle').value.trim()||item.title;item.subtitle=document.querySelector('#tdlMenuSub').value.trim();syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL()};
+  document.querySelector('#deleteTdlItem').onclick=()=>{const arr=tdlForSelected(),idx=arr.findIndex(x=>x.id===id);if(idx>=0)arr.splice(idx,1);syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL()};
+  if(document.querySelector('#addRound'))document.querySelector('#addRound').onclick=()=>addTDLRound(item.id);
+}
+
+function addTDLRound(itemId){
+  const item=tdlForSelected().find(x=>x.id===itemId);if(!item)return;
+  openModal(`<h3>＋ เพิ่มรอบวันที่</h3><div class="field"><label>${escapeHtml(item.title)}</label><input id="newRoundDate" type="date" value="${state.selected}"></div><div class="field"><label>หมายเหตุ</label><textarea id="newRoundNote"></textarea></div><button class="primary big-btn" id="saveNewRound">เพิ่มรอบ</button>`);
+  document.querySelector('#saveNewRound').onclick=()=>{
+    const date=document.querySelector('#newRoundDate').value;if(!date)return;
+    const effectiveDate=nextWorkingDate(date,holidayDates()),items=tdlForSelected(),group=item.scheduleGroup,linked=group?items.filter(x=>x.scheduleGroup===group):[item];
+    if(linked.some(x=>x.rounds?.some(r=>r.date===effectiveDate))){alert('วันที่ทำงานจริงนี้มีรอบอยู่แล้ว');return}
+    for(const target of linked){
+      target.rounds=target.rounds||[];
+      target.rounds.push({plannedDate:date,date:effectiveDate,status:'todo',note:target.id===item.id?document.querySelector('#newRoundNote').value.trim():''});
+      target.rounds.sort((a,b)=>a.date.localeCompare(b.date));
+    }
+    syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL();
+  };
+}
+
+function addTDLTask(sectionId){
+  openModal(`<h3>＋ เพิ่มงานใน TDL</h3><div class="field"><label>ชื่องาน</label><input id="tdlNewTitle" placeholder="ชื่องาน"></div><div class="field"><label>รายละเอียด</label><input id="tdlNewSub" placeholder="เช่น งานปลายเดือน"></div><div class="field"><label>ประเภทงาน</label><select id="tdlNewType"><option value="normal">งานทั่วไปของเดือน</option><option value="round">งานตามรอบ / มีวันที่</option></select></div><div class="field" id="firstRoundWrap" hidden><label>วันที่รอบแรก</label><input id="tdlFirstRound" type="date" value="${state.selected}"></div><div class="field"><label>ใช้เมื่อไหร่</label><select id="tdlNewScope"><option value="month">เฉพาะเดือนนี้</option><option value="all">ใช้ทุกเดือน</option></select></div><div class="field"><label>หมายเหตุ</label><textarea id="tdlNewNote"></textarea></div><button class="primary big-btn" id="saveNewTdl">เพิ่มงาน</button>`);
+  document.querySelector('#tdlNewType').onchange=e=>document.querySelector('#firstRoundWrap').hidden=e.target.value!=='round';
+  document.querySelector('#saveNewTdl').onclick=()=>{const title=document.querySelector('#tdlNewTitle').value.trim();if(!title)return;const subtitle=document.querySelector('#tdlNewSub').value.trim(),note=document.querySelector('#tdlNewNote').value.trim(),type=document.querySelector('#tdlNewType').value,scope=document.querySelector('#tdlNewScope').value,id='tdl-custom-'+Date.now();let item={id,section:sectionId,title,subtitle,status:'todo',note};if(type==='round'){const date=document.querySelector('#tdlFirstRound').value;if(!date)return;const effectiveDate=nextWorkingDate(date,holidayDates());item={...item,status:undefined,rounds:[{plannedDate:date,date:effectiveDate,status:'todo',note}]};}if(scope==='all'){const tpl={id:'tdl-tpl-'+Date.now(),section:sectionId,title,subtitle,note};if(type==='round')tpl.roundDays=[dateFromKey(item.rounds[0].date).getDate()];state.tdlTemplates.push(tpl);item.templateId=tpl.id;item.id=`${tpl.id}@${currentMonthKey()}`;}tdlForSelected().push(item);syncSchedulesForMonth(selectedDate());save();closeModal();renderTDL()};
+}
+function addTDLSection(){
+  openModal(`<h3>＋ เพิ่มหัวข้อ TDL</h3><div class="field"><label>ชื่อหัวข้อ</label><input id="tdlSecTitle" placeholder="เช่น 7. งานพิเศษประจำเดือน"></div><div class="field"><label>ไอคอน</label><input id="tdlSecIcon" value="📌"></div><div class="field"><label>สีหัวข้อ</label><select id="tdlSecTone">${toneOptions('purple')}</select></div><div class="field"><label>ใช้เมื่อไหร่</label><select id="tdlSecScope"><option value="month">เฉพาะเดือนนี้</option><option value="all">ใช้ทุกเดือน</option></select></div><button class="primary big-btn" id="saveTdlSec">เพิ่มหัวข้อ</button>`);
+  document.querySelector('#saveTdlSec').onclick=()=>{const title=document.querySelector('#tdlSecTitle').value.trim();if(!title)return;const sec={id:'tdl-sec-'+Date.now(),title,icon:document.querySelector('#tdlSecIcon').value.trim()||'📌',tone:document.querySelector('#tdlSecTone').value,builtin:false};if(document.querySelector('#tdlSecScope').value==='all')state.tdlSections.push(sec);else(state.monthTdlSections[currentMonthKey()]??=[]).push(sec);save();closeModal();renderTDL()};
+}
+
+function renderSettings(){app.innerHTML=`<div class="settings-grid"><section class="settings-card"><h3>🔔 แจ้งเตือนบนคอม</h3><p>Chrome สามารถแสดง Notification ที่มุมหน้าจอ Windows ได้ เมื่ออนุญาตการแจ้งเตือนให้เว็บไซต์นี้</p><div class="schedule"><span>09:00</span><span>11:00</span><span>13:30</span><span>15:30</span><span>17:00</span></div><div class="toolbar"><button class="primary" id="notifyTest">ทดสอบ Notification</button></div></section><section class="settings-card backup-card"><h3>💾 สำรอง / กู้คืนข้อมูล</h3><p>ข้อมูลหลักเก็บอยู่ใน Chrome ของคอมเครื่องนี้ แนะนำให้ดาวน์โหลดไฟล์สำรองเก็บไว้เป็นระยะ เผื่อมีการล้างข้อมูลเว็บไซต์หรือเปลี่ยนเครื่อง</p><div class="backup-actions"><button class="primary" id="exportBackup">⬇️ สำรองข้อมูล</button><button class="ghost" id="restoreBackup">⬆️ กู้คืนข้อมูล</button></div><input id="backupFileInput" type="file" accept="application/json,.json" hidden><div class="backup-note">ไฟล์สำรองจะเก็บงาน Today, TDL, Calendar, สถานะ, หมายเหตุ และวันหยุดของคุณทั้งหมด</div></section><section class="settings-card"><h3>🗂️ ข้อมูลบนเครื่องนี้</h3><p>V11.2 ใช้ข้อมูลชุดเดียวกับ V10/V9/V8/V7 บนเว็บไซต์เดิม เพื่อให้ข้อมูลที่ใช้งานดีอยู่แล้วไม่หายเมื่ออัปเดตหน้าตาเป็น Desktop</p><button class="ghost danger" id="resetDemo">รีเซ็ตข้อมูลตัวอย่าง</button></section></div>`;document.querySelector('#notifyTest').onclick=testNotification;document.querySelector('#exportBackup').onclick=exportBackup;document.querySelector('#restoreBackup').onclick=()=>document.querySelector('#backupFileInput').click();document.querySelector('#backupFileInput').onchange=async e=>{await restoreBackup(e.target.files?.[0]);e.target.value=''};document.querySelector('#resetDemo').onclick=()=>{if(!confirm('รีเซ็ตข้อมูลทั้งหมดในเครื่องนี้ใช่ไหม?'))return;localStorage.removeItem(STORAGE);state=defaultState();render()}}
+
+function exportBackup(){
+  const payload=makeBackupEnvelope(state,new Date().toISOString());
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=`benz-daily-work-backup-${fmtKey(new Date())}.json`;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),0);
+}
+async function restoreBackup(file){
+  if(!file)return;
+  try{
+    const restored=normalizeState(parseBackupEnvelope(await file.text()));
+    if(!confirm('กู้คืนข้อมูลจากไฟล์นี้ใช่ไหม? ข้อมูลปัจจุบันใน Chrome จะถูกแทนที่'))return;
+    state=restored;save();render();alert('กู้คืนข้อมูลเรียบร้อยแล้ว');
+  }catch(err){alert(err?.message||'ไฟล์สำรองไม่ถูกต้อง')}
+}
+async function testNotification(){if(!('Notification'in window)){alert('เบราว์เซอร์นี้ไม่รองรับ Notification');return}let p=Notification.permission;if(p==='default')p=await Notification.requestPermission();if(p==='granted')new Notification('Benz Daily Work',{body:`อย่าลืมทำนะ • ยังเหลือ ${pendingTasks(tasksFor(state.selected)).length} งาน`,icon:'icon.svg'});else alert('ยังไม่ได้อนุญาต Notification')}
+
+let deferredPrompt;const installBtn=document.querySelector('#installBtn');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.hidden=false});installBtn.onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.hidden=true};if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+render();
+
+</script>
+</body>
+</html>
