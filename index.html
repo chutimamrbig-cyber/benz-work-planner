@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f7f8ff">
-  <title>Benz Daily Work V11.3</title>
+  <title>Benz Daily Work V11.4</title>
   
   
   <style>
@@ -231,7 +231,7 @@ button:disabled,input:disabled{opacity:.55;cursor:not-allowed}
 .v9-ui .calendar-head{background:#fff;border:1px solid var(--v9-line);border-radius:16px;padding:10px 12px;box-shadow:0 6px 18px rgba(77,89,122,.04);margin:0 0 14px}.v9-ui .calendar-head strong{color:#34415b}.v9-ui .calendar-grid{background:#fff;border:1px solid var(--v9-line);border-radius:18px;padding:12px;gap:0;box-shadow:0 8px 24px rgba(77,89,122,.05)}.v9-ui .dow{padding:9px 4px;font-weight:800;color:#8992a7}.v9-ui .day{border:0;border-top:1px solid #f0f2f7;border-right:1px solid #f0f2f7;border-radius:0;background:#fff;min-height:112px;padding:9px;box-shadow:none}.v9-ui .day:nth-child(7n){border-right:0}.v9-ui .day:hover{background:#fafbff}.v9-ui .day.selected{outline:0;background:#f5f3ff;box-shadow:inset 0 0 0 2px #8778ef;border-radius:12px;z-index:2}.v9-ui .weekend-day{background:#fff9fa!important;color:#de6b80!important;border-color:#f4edf0!important}.v9-ui .holiday-day:not(.weekend-day){background:#fff7f8!important}.v9-ui .day .marks{color:#7e889d}
 
 /* TDL */
-.v9-ui .tdl-progress-row{grid-template-columns:84px 1fr}.v9-ui .tdl-progress-row>div:first-child strong{color:#675bd9}.v9-ui .tdl-progress-row>div:first-child span{opacity:1;color:#9aa2b2}.v9-ui .progress{background:#eeedf7}.v9-ui .progress>i{background:linear-gradient(90deg,#7567e8,#61b8a1)}.v9-ui .tdl-filter{gap:8px}.v9-ui .filter-btn{border:1px solid var(--v9-line);background:#fafbfe;color:#7d8799}.v9-ui .filter-btn.active{background:#f1efff;color:#6558d8;border-color:#dfdafd}.v9-ui .tdl-section-head{border-bottom:1px solid #edf0f6;padding:12px 14px}.v9-ui .tdl-head-title strong{color:#40506d}.v9-ui .round-list{background:#fbfcff;border:1px solid #f0f2f7}.v9-ui .round-date-btn{color:#40506d}
+.v9-ui .tdl-progress-row{grid-template-columns:84px 1fr}.v9-ui .tdl-progress-row>div:first-child strong{color:#675bd9}.v9-ui .tdl-progress-row>div:first-child span{opacity:1;color:#9aa2b2}.v9-ui .progress{background:#eeedf7}.v9-ui .progress>i{background:linear-gradient(90deg,#7567e8,#61b8a1)}.v9-ui .tdl-filter{gap:8px}.v9-ui .today-filter{margin:0 0 12px;padding:8px;background:#fff;border:1px solid var(--v9-line);border-radius:14px;box-shadow:0 6px 18px rgba(77,89,122,.04)}.v9-ui .filter-btn{border:1px solid var(--v9-line);background:#fafbfe;color:#7d8799}.v9-ui .filter-btn.active{background:#f1efff;color:#6558d8;border-color:#dfdafd}.v9-ui .tdl-section-head{border-bottom:1px solid #edf0f6;padding:12px 14px}.v9-ui .tdl-head-title strong{color:#40506d}.v9-ui .round-list{background:#fbfcff;border:1px solid #f0f2f7}.v9-ui .round-date-btn{color:#40506d}
 
 /* Settings + modal */
 .v9-ui .settings-grid{gap:14px}.v9-ui .settings-card{padding:18px}.v9-ui .settings-card h3{margin-top:0;color:#34415b}.v9-ui .settings-card p{color:#7d8799;line-height:1.65}.v9-ui .schedule span{background:#f1efff;color:#6659d7}.v9-ui .backup-note{background:#fafbfe;border-color:#edf0f6}.v9-ui .modal{background:rgba(45,50,70,.28);backdrop-filter:blur(3px)}.v9-ui .sheet{border-radius:20px;box-shadow:0 26px 72px rgba(47,55,82,.18)}.v9-ui .field label{color:#59657d}.v9-ui .field input,.v9-ui .field textarea,.v9-ui .field select{border-color:#e5e9f1;background:#fbfcfe}.v9-ui .hint-card{background:#fffaf0;border-color:#f5e8c7;color:#7d6836}
@@ -392,6 +392,9 @@ function summarizeTasks(tasks){
   return tasks.reduce((acc,t)=>{acc.total++; if(t.status==='done') acc.done++; else if(t.status==='waiting') acc.waiting++; else acc.todo++; return acc;},{total:0,done:0,waiting:0,todo:0});
 }
 function pendingTasks(tasks){ return tasks.filter(t=>t.status!=='done'); }
+function filterTodayTasks(tasks,filter='all'){return filter==='pending'?pendingTasks(tasks):tasks}
+function bangkokDateKey(now=new Date()){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));return `${parts.year}-${parts.month}-${parts.day}`}
+function todaySelectionForNav(view,currentSelected,now=new Date()){return view==='today'?bangkokDateKey(now):currentSelected}
 function specialPendingTasks(tasks){ return tasks.filter(t=>t.special && t.status!=='done'); }
 
 function deriveRoundStatus(rounds=[]){
@@ -627,7 +630,7 @@ function defaultEvents(now){
 function defaultState(){
   const now=new Date(); const today=fmtKey(now);
   return {
-    selected:today,view:'today',days:{},events:defaultEvents(now),tdl:{},tdlFilter:'all',
+    selected:today,view:'today',days:{},events:defaultEvents(now),tdl:{},tdlFilter:'all',todayFilter:'all',
     dailyCategories:seedDailyCategories(),dailyTemplates:seedDailyTemplates(),dayCategories:{},
     tdlSections:seedTDLSections(),monthTdlSections:{},tdlCollapsed:{},dailyCollapsed:{},tdlTemplates:[]
   };
@@ -724,7 +727,7 @@ function syncSchedulesForMonth(d=selectedDate()){
 
 const app=document.querySelector('#app'),pageTitle=document.querySelector('#pageTitle'),dateLabel=document.querySelector('#dateLabel'),todayDateNav=document.querySelector('#todayDateNav'),topbar=document.querySelector('.topbar'),prevDay=document.querySelector('#prevDay'),nextDay=document.querySelector('#nextDay'),titleDivider=document.querySelector('#titleDivider'),modal=document.querySelector('#modal'),modalBody=document.querySelector('#modalBody');
 function setView(view){state.view=view;save();document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));render()}
-document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{state.selected=todaySelectionForNav(b.dataset.view,state.selected);setView(b.dataset.view)});
 document.querySelector('#prevDay').onclick=()=>shiftDay(-1);
 document.querySelector('#nextDay').onclick=()=>shiftDay(1);
 function openModal(html){modalBody.innerHTML=html;modal.classList.remove('hidden')}
@@ -761,16 +764,20 @@ function renderDailyTaskList(list){
   return html;
 }
 function renderToday(){
-  const working=isWorkingDayKey(state.selected),tasks=tasksFor(state.selected),sum=summarizeTasks(tasks),specials=specialPendingTasks(tasks),cats=categoriesFor();
+  const working=isWorkingDayKey(state.selected),tasks=tasksFor(state.selected),sum=summarizeTasks(tasks),pending=pendingTasks(tasks),specials=specialPendingTasks(tasks),cats=categoriesFor();
   let html=`<section class="hero compact-hero"><div class="hero-top"><div><span class="pill">📅 ${thaiDate(selectedDate())}</span><h2>งานวันนี้</h2></div><span class="pill">${sum.done}/${sum.total}</span></div><div class="stats"><div class="stat"><strong>${sum.total}</strong><span>ทั้งหมด</span></div><div class="stat"><strong>${sum.done}</strong><span>ทำแล้ว</span></div><div class="stat"><strong>${sum.waiting}</strong><span>รอ</span></div><div class="stat"><strong>${sum.todo}</strong><span>ยังไม่ทำ</span></div></div></section>`;
+  if(working)html+=`<div class="tdl-filter today-filter"><button class="filter-btn ${state.todayFilter==='all'?'active':''}" data-today-filter="all">ทั้งหมด</button><button class="filter-btn ${state.todayFilter==='pending'?'active':''}" data-today-filter="pending">⚠️ ดูเฉพาะงานค้าง ${pending.length}</button></div>`;
   if(!working){const weekend=[0,6].includes(selectedDate().getDay());html+=`<div class="holiday-banner"><strong>🏖️ ${weekend?'เสาร์–อาทิตย์':'หยุดวันนี้'}</strong><br><small>วันนี้ไม่มีงานประจำ งานตามรอบจะเลื่อนไปวันทำงานถัดไปอัตโนมัติ</small></div>`;}
   if(working&&specials.length)html+=`<div class="special-banner"><div><strong>⭐ งานสำคัญ / งานตามรอบ ${specials.length} รายการ</strong><br><small>${specials.slice(0,3).map(t=>escapeHtml(t.title)).join(' • ')}</small></div></div>`;
   if(working)for(const cat of cats){
-    const list=tasks.filter(t=>t.cat===cat.id),collapsed=!!state.dailyCollapsed[dailyCollapseKey(cat.id)];
-    html+=`<section class="section ${cat.tone||'blue'}"><div class="section-head"><div class="section-title">${escapeHtml(cat.title)}</div><div class="section-head-actions"><div class="section-count">${list.filter(x=>x.status!=='done').length} เหลือ</div><button class="collapse-btn" data-daily-collapse="${cat.id}" aria-label="ย่อขยาย" aria-expanded="${collapsed?'false':'true'}"><span class="chevron" aria-hidden="true"></span></button></div></div>${collapsed?'':`<div class="daily-section-body">${renderDailyTaskList(list)}<button class="add-row" data-add="${cat.id}">＋ เพิ่มงานในหัวข้อนี้</button></div>`}</section>`;
+    const list=tasks.filter(t=>t.cat===cat.id),visible=filterTodayTasks(list,state.todayFilter),collapsed=!!state.dailyCollapsed[dailyCollapseKey(cat.id)];
+    if(state.todayFilter==='pending'&&!visible.length)continue;
+    html+=`<section class="section ${cat.tone||'blue'}"><div class="section-head"><div class="section-title">${escapeHtml(cat.title)}</div><div class="section-head-actions"><div class="section-count">${list.filter(x=>x.status!=='done').length} เหลือ</div><button class="collapse-btn" data-daily-collapse="${cat.id}" aria-label="ย่อขยาย" aria-expanded="${collapsed?'false':'true'}"><span class="chevron" aria-hidden="true"></span></button></div></div>${collapsed?'':`<div class="daily-section-body">${renderDailyTaskList(visible)}<button class="add-row" data-add="${cat.id}">＋ เพิ่มงานในหัวข้อนี้</button></div>`}</section>`;
   }
+  if(working&&state.todayFilter==='pending'&&!pending.length)html+=`<div class="empty success-empty">✅ วันนี้ไม่มีงานค้างแล้ว</div>`;
   if(working)html+=`<button class="special-banner add-special" id="addSpecial"><div><strong>＋ เพิ่ม ⭐ งานพิเศษวันนี้</strong><br><small>เพิ่มเฉพาะวันนี้ และเน้นในแจ้งเตือน</small></div><span>›</span></button><button class="add-section-btn" id="addDailySection">＋ เพิ่มหัวข้อในหน้า วันนี้</button>`;
   app.innerHTML=html;
+  app.querySelectorAll('[data-today-filter]').forEach(b=>b.onclick=()=>{state.todayFilter=b.dataset.todayFilter;save();renderToday()});
   app.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>cycleDailyStatus(b.dataset.status));
   app.querySelectorAll('[data-note]').forEach(b=>b.onclick=()=>editDailyNote(b.dataset.note));
   app.querySelectorAll('[data-more]').forEach(b=>b.onclick=()=>dailyTaskMenu(b.dataset.more));
@@ -940,7 +947,7 @@ function addTDLSection(){
   document.querySelector('#saveTdlSec').onclick=()=>{const title=document.querySelector('#tdlSecTitle').value.trim();if(!title)return;const sec={id:'tdl-sec-'+Date.now(),title,icon:document.querySelector('#tdlSecIcon').value.trim()||'📌',tone:document.querySelector('#tdlSecTone').value,builtin:false};if(document.querySelector('#tdlSecScope').value==='all')state.tdlSections.push(sec);else(state.monthTdlSections[currentMonthKey()]??=[]).push(sec);save();closeModal();renderTDL()};
 }
 
-function renderSettings(){app.innerHTML=`<div class="settings-grid"><section class="settings-card"><h3>🔔 แจ้งเตือนบนคอม</h3><p>Chrome สามารถแสดง Notification ที่มุมหน้าจอ Windows ได้ เมื่ออนุญาตการแจ้งเตือนให้เว็บไซต์นี้</p><div class="schedule"><span>09:00</span><span>11:00</span><span>13:30</span><span>15:30</span><span>17:00</span></div><div class="toolbar"><button class="primary" id="notifyTest">ทดสอบ Notification</button></div></section><section class="settings-card backup-card"><h3>💾 สำรอง / กู้คืนข้อมูล</h3><p>ข้อมูลหลักเก็บอยู่ใน Chrome ของคอมเครื่องนี้ แนะนำให้ดาวน์โหลดไฟล์สำรองเก็บไว้เป็นระยะ เผื่อมีการล้างข้อมูลเว็บไซต์หรือเปลี่ยนเครื่อง</p><div class="backup-actions"><button class="primary" id="exportBackup">⬇️ สำรองข้อมูล</button><button class="ghost" id="restoreBackup">⬆️ กู้คืนข้อมูล</button></div><input id="backupFileInput" type="file" accept="application/json,.json" hidden><div class="backup-note">ไฟล์สำรองจะเก็บงาน Today, TDL, Calendar, สถานะ, หมายเหตุ และวันหยุดของคุณทั้งหมด</div></section><section class="settings-card"><h3>🗂️ ข้อมูลบนเครื่องนี้</h3><p>V11.3 ใช้ข้อมูลชุดเดียวกับ V11.2/V10/V9/V8/V7 บนเว็บไซต์เดิม เพื่อให้ข้อมูลที่ใช้งานดีอยู่แล้วไม่หายเมื่ออัปเดตหน้าตาเป็น Desktop</p><button class="ghost danger" id="resetDemo">รีเซ็ตข้อมูลตัวอย่าง</button></section></div>`;document.querySelector('#notifyTest').onclick=testNotification;document.querySelector('#exportBackup').onclick=exportBackup;document.querySelector('#restoreBackup').onclick=()=>document.querySelector('#backupFileInput').click();document.querySelector('#backupFileInput').onchange=async e=>{await restoreBackup(e.target.files?.[0]);e.target.value=''};document.querySelector('#resetDemo').onclick=()=>{if(!confirm('รีเซ็ตข้อมูลทั้งหมดในเครื่องนี้ใช่ไหม?'))return;localStorage.removeItem(STORAGE);state=defaultState();render()}}
+function renderSettings(){app.innerHTML=`<div class="settings-grid"><section class="settings-card"><h3>🔔 แจ้งเตือนบนคอม</h3><p>Chrome สามารถแสดง Notification ที่มุมหน้าจอ Windows ได้ เมื่ออนุญาตการแจ้งเตือนให้เว็บไซต์นี้</p><div class="schedule"><span>09:00</span><span>11:00</span><span>13:30</span><span>15:30</span><span>17:00</span></div><div class="toolbar"><button class="primary" id="notifyTest">ทดสอบ Notification</button></div></section><section class="settings-card backup-card"><h3>💾 สำรอง / กู้คืนข้อมูล</h3><p>ข้อมูลหลักเก็บอยู่ใน Chrome ของคอมเครื่องนี้ แนะนำให้ดาวน์โหลดไฟล์สำรองเก็บไว้เป็นระยะ เผื่อมีการล้างข้อมูลเว็บไซต์หรือเปลี่ยนเครื่อง</p><div class="backup-actions"><button class="primary" id="exportBackup">⬇️ สำรองข้อมูล</button><button class="ghost" id="restoreBackup">⬆️ กู้คืนข้อมูล</button></div><input id="backupFileInput" type="file" accept="application/json,.json" hidden><div class="backup-note">ไฟล์สำรองจะเก็บงาน Today, TDL, Calendar, สถานะ, หมายเหตุ และวันหยุดของคุณทั้งหมด</div></section><section class="settings-card"><h3>🗂️ ข้อมูลบนเครื่องนี้</h3><p>V11.4 ใช้ข้อมูลชุดเดียวกับ V11.3/V11.2/V10/V9/V8/V7 บนเว็บไซต์เดิม เพื่อให้ข้อมูลที่ใช้งานดีอยู่แล้วไม่หายเมื่ออัปเดตหน้าตาเป็น Desktop</p><button class="ghost danger" id="resetDemo">รีเซ็ตข้อมูลตัวอย่าง</button></section></div>`;document.querySelector('#notifyTest').onclick=testNotification;document.querySelector('#exportBackup').onclick=exportBackup;document.querySelector('#restoreBackup').onclick=()=>document.querySelector('#backupFileInput').click();document.querySelector('#backupFileInput').onchange=async e=>{await restoreBackup(e.target.files?.[0]);e.target.value=''};document.querySelector('#resetDemo').onclick=()=>{if(!confirm('รีเซ็ตข้อมูลทั้งหมดในเครื่องนี้ใช่ไหม?'))return;localStorage.removeItem(STORAGE);state=defaultState();render()}}
 
 function exportBackup(){
   const payload=makeBackupEnvelope(state,new Date().toISOString());
